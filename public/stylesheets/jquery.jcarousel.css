@@ -1,0 +1,89 @@
+/**
+ * This <div> element is wrapped by jCarousel around the list
+ * and has the classname "jcarousel-container".
+ */
+.jcarousel-container {
+  position: relative;
+}
+
+.jcarousel-clip {
+  z-index: 2;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  width: 455px;
+}
+
+.jcarousel-list {
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 455px;
+  height: 360px;
+}
+
+.jcarousel-list li,
+.jcarousel-item {
+  float: left;
+  list-style: none;
+  /* We set the width/height explicitly. No width/height causes infinite loops. */
+  width: 453px;
+  height: 360px;
+  text-align: center;
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  border-bottom-width: 0;
+}
+
+/**
+ * The buttons are added dynamically by jCarousel before
+ * the <ul> list (inside the <div> described above) and
+ * have the classnames "jcarousel-next" and "jcarousel-prev".
+ */
+.jcarousel-next {
+  z-index: 3;
+  display: none;
+}
+
+.jcarousel-prev {
+  z-index: 3;
+  display: none;
+}
+
+#slideshow_controls {
+  background: #eee;
+  border: 1px solid #ccc;
+  border-top: 0;
+  margin: 0 0 16px 0;
+  margin-bottom: 16px;
+  width: 453px;  
+  overflow: hidden;
+  padding: 0;
+  float: left;
+}
+
+#slideshow_controls button {
+  margin-top: 0;
+  border: 0;
+  color: black;
+  background-color: #EEE;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 3px 5px;
+  margin: 0;
+}
+
+#slideshow_prev {
+  display: block;
+  float: left;
+}
+
+#slideshow_next {
+  display: block;
+  float: right;
+}

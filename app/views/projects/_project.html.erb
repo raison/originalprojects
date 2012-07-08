@@ -1,0 +1,60 @@
+<div class="project_row">
+  <div class="profile_polaroid">
+    <%= link_to(image_tag(project.avatar_url, :alt => project.title), project_path(project), :class => "img_link") %>
+    <div class="project_info">
+      <h3>
+        <%= link_to project.title, project_path(project) %>
+        <% if current_profile.can_edit?(project) %>
+        <span class="gray">[<%= link_to "edit", edit_project_url(project) %>]</span>
+        <% end %>
+      </h3>
+      <p class="dark_gray"><%= originators(project) %><br/>
+      Last updated on <%= project.updated_at.strftime("%Y-%m-%d") %></p>
+      <br class="clear" />
+    </div>
+  </div>
+
+  <div class="project_details">
+    <h2><%= project.title %></h2>
+    <ul>
+      <% if current_profile.can_edit?(project) %>
+        <li><%= link_to "Edit Project", edit_project_url(project) %></li>
+      <% end %>
+      <% if current_profile.can_manage?(project) %>
+        <li><%= link_to "Manage Project Membership", project_members_path(project) %></li>
+      <% end %>
+      <% if current_profile.is_member?(project) %>
+        <li><%= link_to "Upload an Image", edit_project_images_path(project) %></li>
+      <% end %>
+      <li>
+        <% if current_profile.can_edit?(project) %>
+          <%= link_to "Post a Blog Entry", new_project_blog_entry_path(project) %>
+        <% else %>
+          <%= link_to "Post a Comment", project_path(project, :anchor => 'comments') %>
+        <% end %>
+      </li>
+      <% if current_profile.can_edit?(project) %>
+        <li><%= link_to "Edit Blog Entries", project_blog_entries_url(project) %></li>
+      <% end %>
+
+    </ul>
+  </div>
+
+  <div class="project_collaborators">
+    <h2>
+      Collaborators
+      <% if project.members.count > 20 %>
+        <span class="related_action">[<a href="projects/project-title/edit">view all</a>]</span>
+      <% end %>
+    </h2>
+    <% if project.members.count > 0 %>
+      <% project.members[0..19].each do |profile| %>
+        <%= image_link_to_profile(profile, :thumbnail) %>
+      <% end %>
+    <% else %>
+      <p>This project does not have any team members yet.</p>
+    <% end %>
+  </div>
+
+  <p class="clear" />
+</div>

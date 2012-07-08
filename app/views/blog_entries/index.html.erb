@@ -1,0 +1,29 @@
+<style type="text/css">
+div.input_frame {
+  width: 480px;
+}
+</style>
+<div id="content">
+  <h1>Blog Entries</h1>
+
+  <table id="blog_entry_list" cellpadding="0" cellspacing="0">
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Options</th>
+    </tr>
+    <% @project.blog_entries.each do |blog_entry| %>
+    <tr class="<%= cycle "odd", "even" %>">
+      <td class="title"><%= blog_entry.title %></td>
+      <td><%= blog_entry.profile.name %></td>
+      <td>
+        <%= link_to "Edit", edit_project_blog_entry_url(@project, blog_entry) %> |
+        <%= link_to "Delete", project_blog_entry_url(@project, blog_entry),
+          :method => :delete, :confirm => "Delete this blog entry?" %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+
+  <p><%= link_to "New Blog Entry", new_project_blog_entry_url(@project) %></p>
+</div>

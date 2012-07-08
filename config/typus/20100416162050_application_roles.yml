@@ -1,0 +1,9 @@
+# Typus Roles Configuration File
+#
+# Use the README file as a reference to customize settings.
+
+admin:
+  Service: create, read, update, delete
+  ServiceInterest: create, read, update, delete
+  ServiceMembership: create, read, update, delete
+  ServiceMembershipRequest: create, read, update, delete

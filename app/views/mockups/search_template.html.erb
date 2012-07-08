@@ -1,0 +1,137 @@
+<div id="content">
+
+   <div class="column col_100">
+      <h1>Search Results</h1>
+   
+      <p>You searched for <strong class="green">bicycle</strong> and got 13 results.</p>
+
+      <form id="big_search_form" action="" method="post">
+      <label for="big_search">Search Again</label>
+      <div class="input_frame">
+         <input class="left wide" id="big_search" size="40" type="text" value="bicycle" />
+         <button type="submit">Search</button>
+         <br/><br/>
+      </div>
+      </form>
+   </div>
+   
+   <div class="column col_50">
+      <h2>Projects</h2>
+
+   <div class="profile_preview gray_box rounded">
+      <a href="/projects/lego-watch" class="img_link left"><img alt="Square_60_a549cea39976f9db68945d5936de927d" height="60" src="/avatars/square_60_a549cea39976f9db68945d5936de927d.jpg?1260216692" width="60" /></a>
+      <div class="project_info">
+         <h3><a href="/projects/lego-watch">Lego Watch</a></h3>
+         <p class="dark_gray">
+         <strong>Location:</strong> Wherever, USA<br/>
+         <strong>Originated:</strong> December 07, 2009<br/>
+         <strong>Updated:</strong> December 07, 2009
+         </p>    
+      </div>
+   </div>
+
+   <p class="note">The PROJECTS results could have different fields (i.e. number of followers, etc).</p>
+
+   </div><!-- closing Projects column -->
+
+   <div class="column col_50">
+      <h2>People</h2>
+      
+   <div class="profile_preview gray_box rounded">
+      <a href="/projects/lego-watch" class="img_link left"><img alt="Square_60_a549cea39976f9db68945d5936de927d" height="60" src="/avatars/square_60_a549cea39976f9db68945d5936de927d.jpg?1260216692" width="60" /></a>
+      <div class="project_info">
+         <h3><a href="/profiles/99">User Name</a></h3>
+         <p class="dark_gray">
+         <strong>Location:</strong> Anytown, USA<br/>
+         <strong>Member Since:</strong> December 07, 2009<br/>
+         <strong>Last Login:</strong> December 07, 2009
+         </p>    
+      </div>
+   </div>
+   
+   <p class="note">The PEOPLE results could have different fields (i.e. number of projects originated, number of projects being followed, etc).</p>
+       
+   </div><!-- closing People column -->
+
+<br class="clear" /><!-- clearing column floats -->
+
+</div><!-- closing #content -->
+
+<div id="sidebar">
+
+   <div class="module search">
+      <form action="javascript:;" method="post">
+         <div id="search_box">
+            <!-- clear contents of box with Javascript on first click -->
+            <input class="search_terms" name="search_query" type="text" value="bicycle" />
+            <input class="search_button" type="submit" value="" name="" />
+            <br class="clear" />
+         </div>
+      </form>
+   </div>
+
+
+   <div class="module featured promo promo_pair">
+      <h2>Original Products</h2>
+      <a href="javascript:;">
+      <img src="/images/sidebar/product_promo.jpg" alt="" />
+      </a>
+      <div>
+         <a href="javascript:;">Apple iPhone 4G</a>
+         <br/>
+         Now featuring stealth mode.
+      </div>
+      <br class="clear" />
+   </div>
+ 
+   <div class="module promo promo_pair">
+      <h2>Original Competitions</h2>
+      <a href="javascript:;">
+      <img src="/images/sidebar/contest_promo.png" alt="" />
+      </a>
+      <div>
+         <a href="javascript:;">Design a better paperclip in less than 24 hours.</a>
+      </div>
+      <br class="clear" />
+   </div>
+  
+   <div class="module promo promo_pair">
+      <h2>Original Projects</h2>
+      <a href="javascript:;">
+      <img src="/images/sidebar/project_promo.jpg" alt="" />
+      </a>
+      <div>
+         <a href="/projects/swashbot/">Swashbot</a><br/>
+         Gold Medal RoboGames 2008
+      </div>
+      <br class="clear" />
+   </div>	   
+
+   <div class="module promo text_promo">
+      <a href="javascript:;">Things</a>: Task management has never been this easy.
+   </div>
+
+
+</div>
+
+<br class="clear" />	
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag "jquery_tabs" %>
+  <%= javascript_include_tag "jcarousellite" %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      $.tabs("tab_container");
+
+      if ($("#slideshow li").size() > 1) {
+        $("#slideshow_controls").show();
+        $("#slideshow").jCarouselLite({
+            btnNext: "#slideshow_next",
+            btnPrev: "#slideshow_prev",
+            visible: 1
+        });
+      }
+    });
+
+  </script>
+<% end %>

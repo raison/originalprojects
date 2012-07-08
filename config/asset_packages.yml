@@ -1,0 +1,26 @@
+--- 
+javascripts:
+- base: 
+  - jquery
+  - jquery.ui
+  - jrails
+  - jquery.ui.autocomplete
+  - jquery.ui.autocomplete.ext
+  - facebox
+  - recaptcha_ajax
+  - application
+- logged_in_only:
+  - user_voice
+- project_page:
+  - jquery.jcarousel
+- service_page:
+  - jquery.jcarousel  
+- ie_fixes:
+  - correct_png
+
+stylesheets:
+- base:
+  - screen
+  - console
+  - jquery.jcarousel
+  - jquery.tabs

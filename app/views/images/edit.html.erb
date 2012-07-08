@@ -1,0 +1,29 @@
+<div id="content">
+  <div class="column col_100">
+    <h1>Manage Project Images</h1>
+
+    <% form_for setup_with(@project, :images), :url => project_images_url(@project), :method => :put,
+      :html => { :multipart => true }, :builder => OriginalProjects::FormBuilder do |form| %>
+    <div class="input_frame">
+      <div id="image_collection">
+        <% form.fields_for :images do |image_form| %>
+          <%= render :partial => 'projects/image_form', :locals => { :form => image_form } %>
+        <% end %>
+      </div>
+      <button id="add_image">Add Another Image</button>
+    </div>
+
+    <button class="large green" type="submit">Save</button>
+
+    <% content_for :javascript do %>
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function () {
+        setupMultiFields('image', <%= generate_form_template(form, :image, :partial_path => "projects") %>);
+      });
+    </script>
+    <% end %>
+
+    <% end %>
+  </div>
+</div>
+

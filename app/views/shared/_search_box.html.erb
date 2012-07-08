@@ -1,0 +1,9 @@
+<div class="module search">
+  <% form_tag search_url, :method => :get do %>
+    <div id="search_box">
+      <%= text_field_tag "q", "search", :class => "search_terms" %>
+      <%= submit_tag "", :name => nil, :class => "search_button" %>
+      <br class="clear" />
+    </div>
+  <% end %>
+</div>

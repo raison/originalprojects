@@ -1,0 +1,16 @@
+<li>
+  <div class="first">
+    <%= image_link_to_profile(profile, :square_60) %>
+    <h3><%= link_to profile.name, profile %></h3>
+    <%= profile.location %><br />
+    <%= profile.country %>
+  </div>
+
+  <div>
+    <strong>Projects:</strong> <%= profile.projects.map {|p| link_to p.title, p } * ", " %>
+  </div>
+
+  <div class="last">
+    <%= link_to "Send a message", new_profile_message_path(profile), :rel => "facebox" %>
+  </div>
+</li>

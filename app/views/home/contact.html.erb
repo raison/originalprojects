@@ -1,0 +1,44 @@
+<% content_for :page_title, 'Contact Us' %>
+
+<div id="content">
+  <h1>Contact Original Projects</h1>
+  <div class="column col_75">
+  <div id="contact" class="gray_box rounded">
+     <h2>Please describe your question or issue in as much detail<br>
+        as possible, and we'll get back to you as soon as possible.
+        <br>Thank you!</h2>
+      
+      <% form_tag contact_url, :id => "contact_op" do %>
+        <div>
+           
+          <label for="contact_comments">Your Feedback</label><br/>
+          <textarea name="contact[comments]" id="contact_comments" rows="0" cols="0"></textarea>
+          
+          <label for="contact_subject">Subject</label><br/>
+           <input name="contact[subject]" id="contact_subject" size="30" type="text" value="" /><br/>
+
+          <label for="contact_name">Your Name</label><br/>
+          <input name="contact[name]" id="contact_name" size="30" type="text" value="" /><br/>
+
+          <label for="contact_email">Email Address</label><br/>
+          <input name="contact[email]" id="contact_email" size="30" type="text" value="" />
+
+          
+          <br clear="all">
+          <button type="submit" name="submit">Send Your Feedback</button>
+
+        </div>
+      <% end %>       
+    </div>
+  </div>
+  <div class="column col_25">  
+     <h3>Mailing Address</h3>
+     <p>
+         Original Projects<br/>
+         211 Rigsbee Avenue, Second Floor<br/>
+         Durham, North Carolina 27701<br/>
+         1-888-252-3146
+       </p>
+   </div> 
+  </div>
+</div>

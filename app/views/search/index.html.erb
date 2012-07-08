@@ -1,0 +1,21 @@
+<div id="content">
+
+<h1>Search results for &ldquo;<%= @search.query %>&rdquo;</h1>
+
+<% if @search.any? %>
+
+  <ul class="search_results">
+  <% @search.each do |result| %>
+    <%= result_partial(result) %>
+  <% end %>
+  </ul>
+
+  <%= will_paginate %>
+
+<% else %>
+
+  <p>No results found.</p>
+
+<% end %>
+
+</div>

@@ -1,0 +1,64 @@
+#tabs div.anchor {
+  clear: both;
+}
+
+.ui-tabs .ui-tabs-nav {
+   border-bottom: solid 1px #ccc;
+   padding-bottom: 0px;
+   height: 36px;
+   list-style: none;
+   margin: 0px;	
+}
+
+.ui-tabs .ui-tabs-nav li {
+   float: left;
+}
+
+.ui-tabs .ui-tabs-nav a {
+   display: block;
+   height: 20px;
+   position: relative;
+   border-top: solid 1px #ccc;
+   border-right: solid 1px #ccc;	
+   padding: 12px; 
+   padding-top: 9px;
+   padding-bottom: 6px;
+   color: black;
+   text-decoration: none;
+   background: #eee;
+}
+
+.ui-tabs .ui-tabs-nav a:hover {
+   background: #f3f3f3;
+   color: #258ABA;
+}
+
+.ui-tabs .ui-tabs-nav li a.first {
+   border-left: solid 1px #ccc;	
+}
+
+.ui-tabs .ui-tabs-nav a:focus,
+.ui-tabs .ui-tabs-nav a:active {
+   outline: none;
+}
+
+.ui-tabs .ui-tabs-nav a:hover,
+.ui-tabs .ui-tabs-nav a:focus,
+.ui-tabs .ui-tabs-nav a:active {
+   cursor: pointer;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+   padding-bottom: 6px;
+   background: white;
+   color: black;
+   border-right: solid 1px #ccc;
+   border-bottom: dotted 1px #ccc;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 1px; border-bottom-width: 0; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs .ui-tabs-hide { display: none !important; }
+
+

@@ -1,0 +1,203 @@
+<% content_for :page_title, @service.title %>
+<div id="content">
+<div class="column col_30">
+  <div id="profile_polaroid">
+    <% unless @service.public? %>
+      <div class="private">Private Service</div>
+    <% end %>
+    <%= image_tag(@service.avatar_url) %>
+    <div id="profile_info">
+      <p>
+        <%= @service.short_description %>
+      </p>
+    </div>
+  </div>
+
+  <div class="more_profile_info">
+    <ul>
+    <li><strong><%= @service.title %></strong></li>
+          <% if @service.category.present? %>
+        <!-- <li><strong>Category:</strong> <%= @service.category %></li> -->
+      <% end %>
+
+      <% if @service.location.present? %>
+        <li><strong>Location:</strong> <%= @service.location %></li>
+      <% end %>
+      <% if @service.url.present? %>
+		<li><a href="<%= @service.url %>"><%= @service.url %></a></li>
+	  <% end %>
+	  <% if @service.email.present? %>
+		<li><a href="<%= @service.email %>"><%= @service.email %></a></li>
+	  <% end %>
+          </ul>
+  </div>
+
+  <div id="originators_box" class="avatar_box_side">
+    <div class="avatar_box_side_title">
+      <h2>Owner</h2>
+      <% if @service.originators.count > 4 %>
+        <p><a class="black" href="#" onclick="$('#tab_container').triggerTab(3); return false;">View All</a></p>
+      <% end %>
+
+      <br class="clear"/>
+    </div>
+
+    <div class="avatar_grid">
+      <% @service.originators[0..3].each do |profile| %>
+        <%= image_link_to_profile(profile, :thumbnail) %>
+      <% end %>
+    </div>
+  </div>
+
+
+</div>
+<!-- closing left column -->
+
+<div class="column col_70">
+  <span style="color:#666666;font-weight:bold;">Original Service Providers</span>
+  <br /><br />
+  <h1 class="top"><%= @service.title %></h1>
+      <% if logged_in? %>
+        <div id="service" style="float:right;top:20px;"><%= link_to "CONTACT", new_service_message_path(@service, :type => "service", :subject => "#{@service.title} on OriginalProjects.com", :return_to => service_path(@service)), :rel => "facebox", :class => "yellow" %></div>
+
+      <% end %>
+  <div id="tabs">
+    <ul>
+      <li><a class="first" href="#overview">Description</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#team">Team</a></li>
+    </ul>    
+<div id="overview" class="anchor">
+      <ul id="slideshow">
+        <% @service.images.each_with_index do |image, idx| %>          
+          <li>
+            <%= image_tag image.attachment.url(:large) %>
+          </li>
+        <% end %>
+      </ul>
+
+      <% if @service.images.count > 1 %>
+        <div id="slideshow_controls">
+          <button id="slideshow_prev" title="prev">&lt;</button>
+          <button id="slideshow_next" title="next">&gt;</button>
+        </div>
+      <% end %>
+
+      <div id="project_description" class="mcebox">
+        <%= @service.description %>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+
+    <br class="clear"/>
+        <div id="services" class="anchor">
+
+      <h2>Services</h2>
+
+      <div class="mcebox">
+      <p>
+        <%= @service.servicelist %>
+        </p>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+
+    <br class="clear"/>
+
+
+    <div id="team" class="anchor">
+
+      <h2>Owner</h2>
+
+      <% @service.originators.each do |profile| %>
+        <%= render :partial => 'profile_box', :locals => {:profile => profile} %>
+      <% end %>
+
+      <% if @service.service_members.count > 0 %>
+        <h2>Staff</h2>
+        <% @service.service_members.each do |profile| %>
+          <%= render :partial => 'profile_box', :locals => {:profile => profile} %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <br class="clear"/>
+
+  </div>
+</div>
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_include_merged :project_page %>
+  <script type="text/javascript" charset="utf-8">
+    (function ($) {
+      var verticallyCenterSlideshow = function ($img) {
+        $img.css('margin-top', ($img.parent().parent().height() - $img.height()) / 2);
+      }
+
+
+      function carouselInitCallback(carousel) {
+        $('.jcarousel-control a').bind('click', function() {
+          carousel.scroll(jQuery.jcarousel.intval(jQuery(this).text()));
+          return false;
+        });
+
+        $('.jcarousel-scroll select').bind('change', function() {
+          carousel.options.scroll = jQuery.jcarousel.intval(this.options[this.selectedIndex].value);
+          return false;
+        });
+
+        $('#slideshow_next').bind('click', function() {
+          carousel.next();
+          return false;
+        });
+
+        $('#slideshow_prev').bind('click', function() {
+          carousel.prev();
+          return false;
+        });
+
+        $('.jcarousel-item img').bind("load", function () {
+          verticallyCenterSlideshow($(this));
+        }).each(function () {
+          if (this.complete) $(this).trigger("load");
+        });        
+      };
+
+      $(document).ready(function() {
+        if ($("#slideshow li").size() > 1) {
+          $("#slideshow_controls").show();
+          $('#slideshow').jcarousel({
+            initCallback: carouselInitCallback,
+            scroll: 1,
+            wrap: "both",
+            width: 453,
+            height: 360,
+            buttonNextHTML: null,
+            buttonPrevHTML: null
+          });
+        }
+
+        $tabs = $("#tabs").tabs();
+
+        $('#team_link').click(function() { // bind click event to link
+            $tabs.tabs('select', 4); // switch to third tab
+            return false;
+        });
+
+        $('#followers_link').click(function() { // bind click event to link
+            $tabs.tabs('select', 5); // switch to third tab
+            return false;
+        });
+
+        $("ul.ui-tabs-nav a").click(function () {
+          $('.jcarousel-item img').each(function () {
+            verticallyCenterSlideshow($(this));
+          });
+        });
+
+        window.scroll(0, 0);
+      });
+    })(jQuery);
+  </script>
+<% end %>

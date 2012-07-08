@@ -1,0 +1,8 @@
+<div class="profile_preview gray_box rounded">
+  <%= link_to image_tag(project.avatar_url(:square_60), :height => 60, :width => 60), project, :class => "img_link left" %>
+  <div class="project_info">
+    <h3><%= link_to project.title, project %></h3>
+    <p class="dark_gray"><strong>Originated:</strong> <%= project.created_at.strftime("%B %d, %Y") %><br/>
+    <strong>Updated:</strong> <%= project.updated_at.strftime("%B %d, %Y") %></p>    
+  </div>
+</div>

@@ -1,0 +1,6 @@
+#media_wall
+  - @rows.each_index do |i|
+    %div{ :id => "row_#{i+1}" }
+      - @rows[i].each do |project|
+        %a.img_link{ :href => project_path(project) }
+          = image_tag("http://original-projects.s3.amazonaws.com/images/media_wall/#{project}.jpg")

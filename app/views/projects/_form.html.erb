@@ -1,0 +1,101 @@
+<% form_for setup_with(@project, :images), :html => { :multipart => true }, :builder => OriginalProjects::FormBuilder do |form| %>
+
+  <div>
+
+    <% form.field_for :title, :label => "Project Title", :autocomplete => 'off' do %>
+      <%= form.hidden_field :slug %>
+      <p class="small_note">originalprojects.com/projects/<span id="project_slug_display"><%= @project.slug %></span></p>
+      <p id="project_slug_error" class="hidden small_note error">Sorry, that project title is already taken. Please choose something else.</p>
+    <% end %>
+
+    <%= form.field_for :short_description, :rows => 3, :maxlength => 150, :label => "Project Tagline", :note => "Please describe your project in 150 characters or less." %>
+
+    <%= form.field_for :description, :rows => 12, :label => "Project Description", :note => "What's your project about?" %>
+
+    <%= form.field_for :location, :note => "Where is your project located? (e.g., Durham, NC; Paris, France; anywhere)" %>
+
+    <%= form.field_for :resources_needed, :rows => 4, :label => "Resources Wanted", :note => %Q[
+        Briefly explain who or what you need to further develop this project. This info will help us connect
+        you with potential team members&mdash;and help users find you. ]
+    %>
+
+    <%= form.field_for :current_resources, :rows => 4, :label => "Current Resources", :note => %Q[
+        Briefly explain the resources you currently have. This info will help us connect you with potential
+        team members&mdash;and help users find you. ]
+    %>
+
+    <%= form.field_for :tag_list, :rows => 4, :label => "Tag List", :as => :text_area,
+        :note => "Enter a comma-separated list of words or phrases that describe your project. These tags will help people find your project via search."
+    %>
+
+      <div class="input_frame">
+        <%= form.check_box(:public) %>
+        Make this project public (any user can access the project)
+      </div>
+
+      <label>Membership Status</label>
+      <br />
+      <div class="input_frame">
+        <ul>
+          <li>
+            <%= form.radio_button :membership_status, "open" %>
+            <strong>Open</strong> (any user can join the project as a team member)
+          </li>
+          <li>
+            <%= form.radio_button :membership_status, "invite" %>
+            <strong>Invite Only</strong> (only users you invite, or invite requests you approve,
+            can join the project as a team member)
+          </li>
+          <li>
+            <%= form.radio_button :membership_status, "closed" %>
+            <strong>Closed</strong> (the project is not looking for new team members)
+          </li>
+        </ul>
+      </div>
+
+      <label>Choose a Project Avatar <span class="fade small_note">(JPG, GIF, or PNG format)</span></label>
+      <br />
+      <div class="input_frame" style="overflow: hidden">
+        <div class="avatar">
+          <%= image_tag(@project.avatar.url(:avatar)) unless @project.avatar.blank? %>
+        </div>
+        <%= form.file_field :avatar, :size => 15 %>
+        <%= form.hidden_field :avatar_cache %>
+        <p class="smaller">Maximum file size of 5 MB. Avatars will be resized to be 174 pixels wide.</p>
+      </div>
+
+      <label>Upload Images <span class="fade small_note">(JPG, GIF, and PNG formats accepted)</span></label>
+      <br/>
+
+      <div class="input_frame">
+        <% if @project.errors.on("images.attachment").present? -%>
+          <p class="error">
+            You attempted to upload a disallowed file type. JPG, GIF, and PNG formats are accepted.
+          </p>
+        <% end -%>
+        <div id="image_collection">
+          <% form.fields_for :images do |image_form| %>
+            <%= render :partial => 'image_form', :locals => {:form => image_form} %>
+          <% end %>
+        </div>
+        <button id="add_image">Add Another Image</button>
+        <p class="smaller">Maximum file size of 5 MB. Images will be resized to fit in a 453×360 slideshow.</p>
+      </div>
+
+      <%= form.field_for :url, :label => "Project Website" %>
+
+      <p>
+        <button class="large green" type="submit">Save Changes</button>
+        (Note: all settings can easily be edited even after they’ve been saved.)
+      </p>
+  </div>
+
+  <% content_for :javascript do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+      setupMultiFields('image', <%= generate_form_template(form, :image) %>);
+    });
+  </script>
+  <% end %>
+
+<% end %>

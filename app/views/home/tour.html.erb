@@ -1,0 +1,125 @@
+
+
+<% content_for :page_title, 'Take a Tour' %>
+
+<script src="/javascripts/tabswitch.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+        var setTabIndex = function(){
+            $(".ui-tabs-selected").removeClass("ui-tabs-selected");
+            $("li.ui-state-default").eq(parseInt($(".SlideTab").tabSwitch('index'))).addClass("ui-tabs-selected");
+        }
+
+	$(function(){
+	
+		$('.SlideTab').tabSwitch('create',{width: 860, height: 480});
+		$('.tabSelect').click(function(e){
+			$('.SlideTab').tabSwitch('moveTo',{index: parseInt($(this).attr("rel"))}, setTabIndex);		
+			e.preventDefault();
+		});
+		$('.tourNav').click(function(e){
+			$('.SlideTab').tabSwitch('moveStep',{step: parseInt($(this).attr("rel"))}, setTabIndex);
+				$('a.tabSelect').removeClass("active");
+				$('.SlideTab').tabSwitch('index');
+				
+				
+			e.preventDefault();
+		});
+	});
+</script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      $("#tabs").tabs();
+    });
+  </script>
+
+
+<div id="content">
+
+  <div class="module column_100">
+  <%= link_to "About Original Projects", about_path, :class => 'right-link' %>
+    <h1>Take a Tour</h1>
+    
+    <button class="small green tourNav" rel="1" href="#" style="float:right;margin:12px;">NEXT &rarr;</button>
+    <button class="small green tourNav" rel="-1" href="#" style="float:right;margin:12px;">&larr; PREVIOUS</button>
+
+<br />
+   </div>
+   <div style="clear:both;"></div>
+<div id="tabs" style="margin-bottom:0px;">
+<ul>
+		
+		<li><a class="tabSelect first" href="#share" rel="0">Share</a></li>
+		<li><a class="tabSelect" href="#create" rel="1">Create</a></li>
+		<li><a class="tabSelect" href="#control" rel="2">Control</a></li>
+		<li><a class="tabSelect" href="#connect" rel="3">Connect</a></li>
+		<li><a class="tabSelect" href="#discover" rel="4">Discover</a></li>
+		<li><a class="tabSelect" href="#collaborate" rel="5">Collaborate</a></li>
+		<li><a class="tabSelect" href="#sell" rel="6">Sell</a></li>
+		<li><a class="tabSelect" href="#more" rel="7">More...</a></li>				
+		
+	</ul>
+
+	</div>
+	<div style="border-right:1px solid;border-left:1px solid;border-bottom:1px solid;border-color:#ccc;padding:12px;margin-top:0px;">
+	   <br />
+   <br />
+
+	<div class="SlideTab" id="share">
+      <img src="/images/tour/Tour_01.jpg" style="float:left;padding-right:12px;">
+      	<h3>Share.</h3>
+      		<p>Share and cultivate your original projects with the world (or just a chosen few). Your original project may be a pursuit, hobby, vocation, aspiration, experience, idea, endeavor, passion, goal, resolution, problem, activity&#8212;and much more.</p>
+      		<div style="clear:both;"></div>
+	</div>
+
+	<div class="SlideTab" id="create">
+      <img src="/images/tour/Tour_02.jpg" style="float:left;padding-right:12px;">
+      	<h3>Create.</h3>
+      		<p>Set up projects utilizing a variety of content formats, including text, sketches, images, video, and audio; create dedicated vanity URLs for your projects and profile; and blog about and provide regular updates on your projects.</p>
+	<div style="clear:both;"></div>
+	</div>
+	
+	<div class="SlideTab" id="control">
+      <img src="/images/tour/Tour_03.jpg" style="float:left;padding-right:12px;">
+      	<h3>Control.</h3>
+      		<p>Control whether your projects are public or private; control who sees what content and under what terms, or make your project open to all users; set alerts and receive notifications for projects and resources you're interested in.</p>
+      		<div style="clear:both;"></div>
+	</div>
+	
+	<div class="SlideTab" id="connect">
+      <img src="/images/tour/Tour_04.jpg" style="float:left;padding-right:12px;">
+      	<h3>Connect.</h3>
+      		<p>Find others and build a network around your projects; add team members; communicate with followers and supporters; utilize your existing networks from Facebook, LinkedIn, and Twitter to promote and develop your projects; and follow or join projects started by others.</p>
+      		<div style="clear:both;"></div>
+	</div>
+	
+	<div class="SlideTab" id="discover">
+      <img src="/images/tour/Tour_05.jpg" style="float:left;padding-right:12px;">
+      	<h3>Discover &amp; Develop</h3>
+      		<p>Attract needed resources or seek them out to develop your projects; share ideas and resources with others; or simply browse projects&#8212;whether for information, entertainment, or inspiration.</p>
+      		<div style="clear:both;"></div>
+	</div>
+	
+	<div class="SlideTab" id="collaborate">
+      <img src="/images/tour/Tour_06.jpg" style="float:left;padding-right:12px;">
+      	<h3>Collaborate.</h3>
+      		<p>Control collaboration status and settings of your project; collaborate using unique interfaces that combine blogs, comments, audio, video, and hand-drawing to collaborate with others online to develop projects.</p>
+      		<div style="clear:both;"></div>
+	</div>
+	
+	<div class="SlideTab" id="sell">
+      <img src="/images/tour/Tour_07.jpg" style="float:left;padding-right:12px;">
+      	<h3>Sell &amp; Raise Funds.</h3>
+      		<p>Market, sell, and even pre-sell goods and services related to your projects; or even sell your original project in its entirety to someone who wants to develop it further; raise funds for your original project; and fund other projects.</p>
+      		<div style="clear:both;"></div>
+	</div>
+	
+	<div class="SlideTab" id="more">
+      <img src="/images/tour/Tour_08.jpg" style="float:left;padding-right:12px;">
+      	<h3>And Much More...</h3>
+      		<p>If you'd like to suggest any features, <%= link_to "please let us know", contact_path %>.</p>
+      		<div style="clear:both;"></div>
+	</div>							
+
+</div>
+</div>

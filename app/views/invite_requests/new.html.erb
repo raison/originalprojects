@@ -1,0 +1,21 @@
+<% content_for :page_title, 'Sign Up' %>
+
+<div id="content">
+
+   <div class="column col_100">
+      <h1>Sign Up for Original Projects</h1>
+
+      <p>Do you have an original project, or are you looking for an original project? Fill out the form to sign up. Thank You! (All fields required.)</p>
+
+      <% form_for :invite_request, @invite_request, :url => invite_request_path do |form| %>
+        <%= form.field_for :name %>
+        <%= form.field_for :email %>
+        <%= form.field_for :city %>
+        <%= form.field_for :state, :label => "<strong>State/Province</strong>" %>
+        <%= form.field_for :country %>
+      
+        <%= submit_tag "Sign Up" %>
+      <% end %>
+   </div>
+</div>
+

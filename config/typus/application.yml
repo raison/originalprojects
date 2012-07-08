@@ -1,0 +1,107 @@
+# Typus Models Configuration File
+#
+# Use the README file as a reference to customize settings.
+
+Activity:
+  fields:
+    list: project, profile
+    form: project, profile
+  order_by:
+  relationships: profile, project
+  filters:
+  search:
+  application: Original Projects
+
+Interest:
+  fields:
+    list: project, profile
+    form: project, profile
+  order_by:
+  relationships: profile, project
+  filters:
+  search:
+  application: Original Projects
+
+InviteRequest:
+  fields:
+    list: name, email, city, state, created_at, invited?, accepted?
+    show: name, email, city, state, country, project, created_at, invited?, accepted?
+    form: name, email, city, state, country, project, project_description, created_at
+    relationship: invite
+  order_by:
+  relationships: invite
+  filters: created_at
+  search: name, email
+  actions:
+    edit: send_invite
+    show: send_invite
+  application: Membership Requests and Invitations
+  description: Go here to send invitations to people who have requested them.
+  options:
+    default_action_on_item: show
+
+Invite:
+  fields:
+    list: invite_request, token, accepted?, accepted_at
+    form: token, invite_request, accepted_at
+    options:
+      read_only: token
+  filters: accepted_at
+  order_by: accepted_at
+  relationships: invite_request
+  application: Membership Requests and Invitations
+
+Membership:
+  description: Connections between profiles and projects.
+  fields:
+    list: originator, project, profile
+    form: originator, project, profile
+  order_by:
+  relationships: profile, project
+  filters:
+  search:
+  application: Original Projects
+
+MembershipRequest:
+  fields:
+    list: project, profile
+    form: project, profile
+  order_by:
+  relationships: profile, project
+  filters:
+  search:
+  application: Original Projects
+
+Profile:
+  fields:
+    list: username, active, display_name, email, city, state, zip, country, serviceowner
+    form: username, active, display_name, email, city, state, zip, country, url, serviceowner, password, password_confirmation
+  order_by:
+  relationships: interests, links, membership_requests, memberships
+  filters:
+  search: username, display_name, email
+  application: Original Projects
+  export: csv
+  options:
+    index_after_save: true
+
+ProfileLink:
+  fields:
+    list: url, profile
+    form: url, profile
+  order_by:
+  relationships: profile
+  filters:
+  search:
+  application: Original Projects
+
+Project:
+  fields:
+    list: title, slug, active, public, featured, membership_status
+    form: title, slug, active, public, featured, membership_status, url, location, short_description, description, opdescription, current_resources, resources_needed, needs
+  order_by:
+  relationships: base_tags, images, interests, membership_requests, memberships, tag_taggings, taggings, tags
+  filters:
+  search: title
+  application: Original Projects
+  

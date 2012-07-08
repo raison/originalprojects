@@ -1,0 +1,16 @@
+<% if service -%>
+<div class="service_container" style="border: 1px solid;border-color: #cccccc;">
+
+  <%= link_to(image_tag(service.avatar_url(:small), :class => 'border'), service_path(service), :class => 'img_link') -%>
+	<div class="service_info">
+	  <h2>
+      <%= link_to service.title, service_path( service ) -%>
+      </h2>
+    <p><b>Category:</b> <%= service.category %><br />
+    <b>Location:</b> <%= service.location %><br />
+   
+		<%= service.short_description %>
+       </p>
+	</div>
+</div>
+<% end -%>

@@ -1,0 +1,12 @@
+This email was sent on behalf of someone using #{SITE_NAME}:
+===================================================================
+- if @profile
+  Profile ID: #{@profile.id}
+  Username:   #{h(@profile.username)}
+  User Name:  #{h(@profile.display_name)}
+
+Msg Name:  #{h(@name)}
+Msg Email: #{h(@email)}
+
+Message:
+#{h(@message)}

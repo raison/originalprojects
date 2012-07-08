@@ -1,0 +1,50 @@
+<div class="project_row">
+  <div class="profile_polaroid">
+    <%= link_to(image_tag(service.avatar_url, :alt => service.title), service_path(service), :class => "img_link") %>
+    <div class="project_info">
+      <h3>
+        <%= link_to service.title, service_path(service) %>
+        <% if current_profile.can_edit?(service) %>
+        <span class="gray">[<%= link_to "edit", edit_service_url(service) %>]</span>
+        <% end %>
+      </h3>
+      <p class="dark_gray"><%= originators(service) %><br/>
+      Last updated on <%= service.updated_at.strftime("%Y-%m-%d") %></p>
+      <br class="clear" />
+    </div>
+  </div>
+
+  <div class="project_details">
+    <h2><%= service.title %></h2>
+    <ul>
+      <% if current_profile.service_can_edit?(service) %>
+        <li><%= link_to "Edit Service", edit_service_url(service) %></li>
+      <% end %>
+      <% if current_profile.service_can_manage?(service) %>
+        <li><%= link_to "Manage Service Membership", service_service_members_path(service) %></li>
+      <% end %>
+      <% if current_profile.service_is_member?(service) %>
+        <li><%= link_to "Upload an Image", edit_service_images_path(service) %></li>
+      <% end %>
+
+    </ul>
+  </div>
+
+  <div class="project_collaborators">
+    <h2>
+      Collaborators
+      <% if service.service_members.count > 20 %>
+        <span class="related_action">[<a href="services/service-title/edit">view all</a>]</span>
+      <% end %>
+    </h2>
+    <% if service.service_members.count > 0 %>
+      <% service.service_members[0..19].each do |profile| %>
+        <%= image_link_to_profile(profile, :thumbnail) %>
+      <% end %>
+    <% else %>
+      <p>This service does not have any team members yet.</p>
+    <% end %>
+  </div>
+
+  <p class="clear" />
+</div>

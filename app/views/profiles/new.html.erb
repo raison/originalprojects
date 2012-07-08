@@ -1,0 +1,105 @@
+<div id="content">
+
+  <div class="column col_100">
+  <h1>Sign Up for Original Projects</h1>
+
+  <div class="wide_note">
+    <p>All fields are required.</p>
+    <br class="clear" />
+  </div>
+
+  <%= error_messages_for :new_profile %>
+
+  <% form_for :new_profile, :url => my_profile_url, :method => :post do |form| -%>
+    <div id="edit_profile">
+
+      <label>Invite Code</label><br/>
+      <div class="input_frame">
+        <p class="small_note">Don't have an invite code? <%= link_to "Request one.", request_invite_url %></p>
+        <%= text_field_tag(:invite_token, params[:invite_token], :class => 'wide', :size => '40') %>
+      </div>
+
+      <label>Real Name</label><br/>
+      <div class="input_frame">
+        <%= form.text_field(:display_name, :class => 'wide') %>
+      </div>
+
+      <label>Desired Username</label><br/>
+      <div class="input_frame">
+        <%= form.text_field(:username, :class => 'wide') %>
+      </div>
+
+      <label>Email</label><br/>
+      <div class="input_frame">
+        <%= form.text_field(:email, :class => 'wide') %>
+      </div>
+
+      <div class="label_input_float">
+        <label>City</label><br/>
+        <div class="input_frame">
+          <%= form.text_field(:city, :class => 'short') %>
+        </div>
+
+      </div>
+
+      <div class="label_input_float">
+        <label>State/Province</label><br/>
+        <div class="input_frame">
+          <%= form.text_field(:state, :class => 'short') %>
+        </div>
+      </div>
+
+      <br class="clear" />
+
+      <div class="label_input_float">
+
+        <label>ZIP/Post Code</label><br/>
+        <div class="input_frame">
+          <%= form.text_field(:zip, :class => 'short') %>
+        </div>
+      </div>
+
+      <div class="label_input_float">
+        <label>Country</label><br/>
+        <div class="input_frame">
+          <%= form.text_field(:country, :class => 'short') %>
+        </div>
+      </div>
+
+      <br class="clear" />
+
+      <div class="label_input_float">
+        <%= form.label :password %>
+        <br />
+        <div class="input_frame">
+          <%= form.password_field(:password, :class => 'short password_field') %>
+        </div>
+      </div>
+
+      <div class="label_input_float">
+        <%= form.label :password_confirmation %>
+        <br/>
+        <div class="input_frame">
+          <%= form.password_field(:password_confirmation, :class => 'short password_field') %>
+        </div>
+      </div>
+
+      <br class="clear" />
+
+      <div class="option_set">
+        <div class="option_box">
+          <ul>
+            <!-- label tag below isn't nested quite right, needs investigation -->
+            <li><label><%= form.check_box(:tos_accepted) %>
+                  I accept the <%= link_to 'Terms of Use', tos_path, :target => 'blank' %></label></li>
+          </ul>
+        </div>
+      </div>
+
+      <%= form.submit('Sign Up', :class => 'button') %>
+
+
+    </div><!-- closing #edit_profile -->
+  <% end -%>
+   </div>
+</div><!-- closing #content -->

@@ -1,0 +1,333 @@
+<% content_for :page_title, @project.title %>
+<% content_for :head do %>
+  <link rel="alternate" type="application/atom+xml" title="<%= @project.title %> Recent Activity" href="<%= project_url(@project, :format => "atom") %>"/>
+<% end %>
+
+<div id="content">
+<div class="column col_30">
+  <div id="profile_polaroid">
+    <% unless @project.public? %>
+      <div class="private">Private Project</div>
+    <% end %>
+    <%= image_tag(@project.avatar_url) %>
+    <div id="profile_info">
+      <p>
+        <%= @project.short_description %>
+      </p>
+    </div>
+  </div>
+
+  <div class="more_profile_info">
+    <ul>
+      <% if @project.location.present? %>
+        <li><strong>Location:</strong> <%= @project.location %></li>
+      <% end %>
+      <li><strong>Originated:</strong> <%= @project.created_at.strftime("%B %e, %Y") %></li>
+      <li><strong>Updated:</strong> <%= @project.updated_at.strftime("%B %e, %Y") %></li>
+      <li>
+        <strong>Status:</strong>
+        <% if @project.has_open_membership? %>
+          Open to Everyone
+          <%= join_project_link("(Join)", @project) %>
+        <% elsif @project.has_invite_membership? %>
+          By Request Only
+          <% if @profile %>
+          <% if !current_profile.is_involved?(@project) && !current_profile.requested_membership?(@project) %>
+            <%= link_to "(Request)", project_membership_requests_path(@project), :method => :post %>
+          <% end %>
+          <% end %>
+        <% else %>
+          Closed
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <div id="originators_box" class="avatar_box_side">
+    <div class="avatar_box_side_title">
+      <h2><%= pluralize_by_count "Originator", @project.originators.count %></h2>
+      <% if @project.originators.count > 4 %>
+        <p><a class="black" href="#" onclick="$('#tab_container').triggerTab(3); return false;">View All</a></p>
+      <% end %>
+
+      <br class="clear"/>
+    </div>
+
+    <div class="avatar_grid">
+      <% @project.originators[0..3].each do |profile| %>
+        <%= image_link_to_profile(profile, :thumbnail) %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @project.members.count > 0 %>
+    <div id="team_box" class="avatar_box_side">
+      <div class="avatar_box_side_title">
+        <h2>Team</h2>
+        <% if @project.members.count > 8 %>
+          <p>
+            <%= link_to("View All",
+                  project_url(:id => @project.to_param, :anchor => 'team'),
+                  :class => 'black',
+                  :id => "team_link") %>
+          </p>
+        <% end %>
+        <br class="clear"/>
+      </div>
+      <div class="avatar_grid">
+        <% @project.members[0..7].each do |profile| %>
+          <%= image_link_to_profile(profile, :thumbnail) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @project.non_member_followers.size > 0 %>
+    <div id="followers_box" class="avatar_box_side">
+      <div class="avatar_box_side_title">
+        <h2>Followers</h2>
+        <% if @project.non_member_followers.size > 12 %>
+          <p>
+            <%= link_to("View All",
+                  project_url(:id => @project.to_param, :anchor => 'followers'), 
+                  :class => 'black',
+                  :id => "followers_link") %>
+          </p>
+        <% end %>
+        <br class="clear"/>
+      </div>
+      <div class="avatar_grid">
+        <% @project.non_member_followers[0..11].each do |profile| %>
+          <%= image_link_to_profile(profile, :thumbnail) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<!-- closing left column -->
+
+<div class="column col_70">
+
+  <h1 class="top"><%= @project.title %></h1>
+  <% if logged_in? %>
+      <% if current_profile.can_edit?(@project) %>
+        <p>
+          <%= link_to "Edit this project", edit_project_url(@project) %>
+        </p>
+      <% end -%>
+      <% end %>
+
+  <% if comment = @project.comments.by_originators.first %>
+    <div id="recent_update" class="activity_update">
+      <%= image_link_to_profile(comment.profile, :thumbnail) %>
+      <p>
+        <span class="update_leader"><strong><%= comment.profile.name %>:</strong></span>
+        <%= comment.content %>
+      </p>
+
+      <p class="activity_date"><%= comment.created_at.to_s(:extended) %></p>
+    </div>
+  <% end %>
+
+  <div id="tabs">
+    <ul>
+      <li><a class="first" href="#overview">Overview</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#comments">Comments</a></li>
+      <li><a href="#resources">Wanted</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#followers">Followers</a></li>
+    </ul>    
+
+    <div id="overview" class="anchor">
+      <ul id="slideshow">
+        <% @project.images.each_with_index do |image, idx| %>          
+          <li>
+            <%= image_tag image.attachment.url(:large) %>
+          </li>
+        <% end %>
+      </ul>
+
+      <% if @project.images.count > 1 %>
+        <div id="slideshow_controls">
+          <button id="slideshow_prev" title="prev">&lt;</button>
+          <button id="slideshow_next" title="next">&gt;</button>
+        </div>
+      <% end %>
+
+      <div id="project_description">
+        <%= simple_format(s(@project.description)) %>
+      </div>
+    </div>
+
+    <br class="clear"/>
+
+
+    <div id="blog" class="anchor">
+    <% if logged_in? %>
+      <% if current_profile.can_blog?(@project) %>
+        <p>
+          <%= link_to "Add New Blog Entry", new_project_blog_entry_url(@project) %>
+        </p>
+      <% end -%>
+      <% end %>
+      <% if @project.blog_entries.present? %>
+        <ul>
+          <%= render :partial => "projects/blog_entry", :collection => @project.blog_entries.all(:limit => 5) %>
+        </ul>
+      <% end %>
+
+      <% if @project.blog_entries.count > 5 %>
+        <p><%= link_to "Show All Blog Entries", project_blog_entries_url(@project),
+                       :class => "show_all_blog_entries" %></p>
+      <% end %>
+
+    </div>
+
+    <div id="comments" class="anchor">
+
+      <% form_for [@project, Comment.new] do |f| %>
+        <div id="comment_form">
+          <%= f.text_area :content %>
+          <button type="submit">Add Your Comments</button>
+        </div>
+      <% end %>
+
+      <% Activity.for_project(@project).latest(50).each do |activity| %>
+        <div class="activity_update">
+          <% if activity.profile.present? %>
+            <%= image_link_to_profile(activity.profile, :thumbnail) %>
+          <% elsif activity.project.present? %>
+            <%= image_link_to_project(activity.project, :thumbnail) %>
+          <% end %>
+
+          <% if activity.subject.is_a?(Comment) %>
+            <%= render :partial => "projects/comment", :locals => { :comment => activity.subject } %>
+          <% else %>
+            <p><%= activity_to_html(activity) %></p>
+
+            <p class="activity_date">
+              <%= display_date(activity.updated_at) %>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+
+    </div>
+
+    <div id="resources" class="anchor">
+      <h2>Resources Needed</h2>
+
+      <%= simple_format @project.resources_needed %>
+
+      <h2>Current Resources</h2>
+
+      <%= simple_format @project.current_resources %>
+    </div>
+
+    <div id="team" class="anchor">
+
+      <h2>Originators</h2>
+
+      <% @project.originators.each do |profile| %>
+        <%= render :partial => 'profile_box', :locals => {:profile => profile} %>
+      <% end %>
+
+      <% if @project.members.count > 0 %>
+        <h2>Team Members</h2>
+        <% @project.members.each do |profile| %>
+          <%= render :partial => 'profile_box', :locals => {:profile => profile} %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div id="followers" class="anchor">
+
+      <% if @project.non_member_followers.size > 0 %>
+        <h2>Followers</h2>
+        <% @project.non_member_followers.each do |profile| %>
+          <%= render :partial => 'profile_box', :locals => {:profile => profile} %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <br class="clear"/>
+
+  </div>
+</div>
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_include_merged :project_page %>
+  <script type="text/javascript" charset="utf-8">
+    (function ($) {
+      var verticallyCenterSlideshow = function ($img) {
+        $img.css('margin-top', ($img.parent().parent().height() - $img.height()) / 2);
+      }
+
+
+      function carouselInitCallback(carousel) {
+        $('.jcarousel-control a').bind('click', function() {
+          carousel.scroll(jQuery.jcarousel.intval(jQuery(this).text()));
+          return false;
+        });
+
+        $('.jcarousel-scroll select').bind('change', function() {
+          carousel.options.scroll = jQuery.jcarousel.intval(this.options[this.selectedIndex].value);
+          return false;
+        });
+
+        $('#slideshow_next').bind('click', function() {
+          carousel.next();
+          return false;
+        });
+
+        $('#slideshow_prev').bind('click', function() {
+          carousel.prev();
+          return false;
+        });
+
+        $('.jcarousel-item img').bind("load", function () {
+          verticallyCenterSlideshow($(this));
+        }).each(function () {
+          if (this.complete) $(this).trigger("load");
+        });        
+      };
+
+      $(document).ready(function() {
+        if ($("#slideshow li").size() > 1) {
+          $("#slideshow_controls").show();
+          $('#slideshow').jcarousel({
+            initCallback: carouselInitCallback,
+            scroll: 1,
+            wrap: "both",
+            width: 453,
+            height: 360,
+            buttonNextHTML: null,
+            buttonPrevHTML: null
+          });
+        }
+
+        $tabs = $("#tabs").tabs();
+
+        $('#team_link').click(function() { // bind click event to link
+            $tabs.tabs('select', 4); // switch to third tab
+            return false;
+        });
+
+        $('#followers_link').click(function() { // bind click event to link
+            $tabs.tabs('select', 5); // switch to third tab
+            return false;
+        });
+
+        $("ul.ui-tabs-nav a").click(function () {
+          $('.jcarousel-item img').each(function () {
+            verticallyCenterSlideshow($(this));
+          });
+        });
+
+        window.scroll(0, 0);
+      });
+    })(jQuery);
+  </script>
+<% end %>

@@ -1,0 +1,17 @@
+%h1
+  An Error Has Occurred
+- if @error_message
+  %strong
+    Error message:
+    = @error_message
+- else
+  %strong
+    An unexpected error has occured.
+- if @error_backtrace
+  %h2
+    Stack Trace
+  %table
+    - @error_backtrace.each do |rec|
+      %tr
+        %td
+          = h rec

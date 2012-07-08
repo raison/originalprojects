@@ -1,0 +1,102 @@
+.error {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
+
+.input_frame {
+  overflow: hidden;
+}
+.input_frame .avatar {
+  float: right;
+  margin-bottom: 10px;
+}
+
+a.delete_link {
+  padding: 0;
+  margin-left: 3px;
+}
+
+form img.project_image {
+  margin-bottom: 10px;
+}
+
+#envelope {
+  background-color: white;
+  -moz-border-radius-topleft: 7px;
+  -webkit-border-top-left-radius: 7px;
+  -moz-border-radius-topright: 7px;
+  -webkit-border-top-right-radius: 7px;
+}
+
+#console #dashboard #top {
+  height: auto;
+  padding-bottom: 20px;
+}
+#console #dashboard #inbox {
+  position: static;
+}
+#console #dashboard #inbox li {
+  margin-bottom: 0;
+}
+
+#slideshow li {
+  margin-bottom: 0;
+}
+
+#slideshow_controls {
+  width: 453px;
+  overflow: hidden;
+  padding: 0;
+  display: none;
+}
+#slideshow_controls button {
+  border: 0;
+  color: black;
+  background-color: #EEE;
+  font-size: 20px;
+  padding: 5px;
+}
+
+#slideshow_prev {
+  display: block;
+  float: left;
+}
+
+#slideshow_next {
+  display: block;
+  float: right;
+}
+
+#project_description {
+  margin-top: 10px;
+}
+
+.avatar_box {
+  font-size: 11px;
+}
+
+#overview_tab div#slideshow {
+  border-top: none;
+}
+#overview_tab div#description {
+  margin-top: 15px;
+  font-size: 11px;
+}
+#overview_tab div#description p {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+div.profile_preview {
+  border-top: none;
+  height: 122px;
+  overflow: hidden;
+}
+
+div#actions { border-top: none; }
+
+
+

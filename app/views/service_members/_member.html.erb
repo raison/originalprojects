@@ -1,0 +1,10 @@
+<li>
+  <%= image_link_to_profile(member, :thumbnail) %>
+  <%= link_to member.name, member %>
+  <p class="options">
+    <%= link_to "message", new_profile_message_path(member, :subject => service.title), :rel => "facebox" %> |
+
+    <%= link_to "remove", service_service_member_url(service, member), :method => :delete,
+          :confirm => "Remove #{member.name} from #{service.title}?" %>
+  </p>
+</li>

@@ -1,0 +1,41 @@
+<% content_for :page_title, "Start a New Service" %>
+
+<div id="content">
+  <h1>Enter Service Information</h1>
+  <%= render(:partial => 'form') %>
+</div>
+
+<% content_for :javascript do %>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function () {
+    var ajaxReady = true;
+    var currentRequest = null;
+
+    var slugCheck = function () {
+      if ($('#service_title').val() == '') {
+        $('#service_slug_display').text("your-title-here");
+      } else {
+        if (currentRequest) {
+          window.clearTimeout(currentRequest);
+        }
+
+        currentRequest = window.setTimeout(function () {
+          $.get('/services/slug_check', {title: $('#service_title').val()}, function (data) {
+            $('#service_slug').val(data.slug);
+            $('#service_slug_display').text(data.slug);
+            if (data.unique) {
+              $('#service_slug_error').hide();
+            } else {
+              $('#service_slug_error').show();
+            }
+          }, 'json');
+        }, 200);
+      }
+    };
+
+    $('#service_title').bind('keyup', slugCheck);
+    $('#service_title').bind('change', slugCheck);
+    slugCheck();
+  });
+</script>
+<% end %>

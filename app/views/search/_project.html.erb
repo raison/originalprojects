@@ -1,0 +1,14 @@
+<li>
+  <div class="first">
+    <%= image_tag(project.avatar.url(:square_60)) %>
+    <h3><%= link_to project.title, project %></h3>
+  </div>
+
+  <div>
+    <strong>Originators:</strong> <%= project.originators.map {|o| link_to o.name, o } * ", " %>
+  </div>
+
+  <div class="last">
+    <%= link_to "Send a message", "#" %>
+  </div>
+</li>

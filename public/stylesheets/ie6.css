@@ -1,0 +1,16 @@
+#homepage_featured > div {
+  padding: 10px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: white url('/images/gradient_bottom_100px.png') bottom center repeat-x;
+  border: solid 1px #ccc;
+  float: left;
+  padding-left: 20px;
+  margin-left: 0px;
+  margin-bottom: 20px;
+  width: 258px;
+}
+#homepage_featured > div.no_margin {
+  /* first and fourth divs would otherwise be pushed off the left edge */
+  margin-left: 0px;
+}

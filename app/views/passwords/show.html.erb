@@ -1,0 +1,21 @@
+<div id="content">
+  <h1>Reset Your Password</h1>
+
+  <% form_for @profile, :url => password_url(params[:id]) do |f| %>
+    <%= error_messages_for :profile %>
+
+    <%= f.label :password %>
+    <div class="input_frame">
+      <%= f.password_field :password, :value => "", :class => "wide password_field" %>
+    </div>
+
+    <%= f.label :password_confirmation %>
+    <div class="input_frame">
+      <%= f.password_field :password_confirmation, :value => "", :class => "wide password_field" %>
+    </div>
+
+    <p>
+      <%= submit_tag "save" %>
+    </p>
+  <% end %>
+</div>

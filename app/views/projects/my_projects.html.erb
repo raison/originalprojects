@@ -1,0 +1,45 @@
+<% content_for :page_title, "My Projects" %>
+
+<div id="content">
+
+  <div class="column col_100">
+
+    <h1 class="left">My Projects</h1>
+
+    <ul class="project_filter">
+      <li class="first"><%= link_to "All", "#", :class => "active" %></li>
+      <li><%= link_to "Originated", "#originated", :class => "originated" %></li>
+      <li><%= link_to "Collaborating", "#collaborating", :class => "collaborating" %></li>
+      <li class="last"><%= link_to "Following", "#following", :class => "following" %></li>
+    </ul>
+
+    <div id="primary_actions">
+      <a class="large_button" href="projects/new/">Start a New Project &rarr;</a>
+    </div>
+
+    <br class="clear" />
+
+    <div id="my_projects">
+      <% if @projects[:originated].any? %>
+      <div class="categories rounded originated projects">
+        <h2>Projects I've Originated</h2>
+        <%= render :partial => "project", :collection => @projects[:originated] %>
+      </div>
+      <% end %>
+
+      <% if @projects[:collaborating].any? %>
+      <div class="categories rounded collaborating projects">
+        <h2>Projects I'm Collaborating On </h2>
+        <%= render :partial => "project", :collection => @projects[:collaborating] %>
+      </div>
+      <% end %>
+
+      <% if @projects[:following].any? %>
+      <div class="categories rounded following projects">
+        <h2>Projects I'm Following</h2>
+        <%= render :partial => "project", :collection => @projects[:following] %>
+      </div>
+      <% end %>
+    </div><!-- closing #my_projects -->
+  </div><!-- closing column -->
+</div><!-- closing #content -->

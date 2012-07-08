@@ -1,0 +1,61 @@
+<div id="content">
+
+  <div class="column col_100">
+
+    <h1><%= @service.title %></h1>
+
+    <% if @service.service_membership_requests.any? %>
+
+    <h2>Membership Requests</h2>
+
+    <ul>
+    <% @service.service_membership_requests.each do |request| %>
+      <li>
+        <%= image_link_to_profile(request.profile, :thumbnail) %>
+        <%= link_to request.profile.name, request.profile %><br />
+
+        <% form_for :member, :url => service_members_url(@service) do |f| %>
+          <%= f.hidden_field :profile_id, :value => request.profile.id %>
+          <%= submit_tag "Approve" %>
+        <% end %>
+
+        <%= link_to "Deny", service_membership_request_url(@service, request), :method => :delete %>
+      </li>
+    <% end %>
+    </ul>
+
+    <% end %>
+
+    <h2 class="separator_top">Service Owner</h2>
+(Only the Service Owner can edit details and designate profiles as Staff Members)
+    <ul class="member_list">
+    <% @service.originators.each do |profile| %>
+      <li>
+        <%= image_link_to_profile(profile, :thumbnail) %>
+        <%= link_to profile.name, profile %>
+
+        <% unless profile == current_profile %>
+        <p class="options">
+          <%= link_to "message", new_profile_message_path(profile, :subject => @service.title), :rel => "facebox" %>
+        </p>
+        <% end %>
+      </li>
+    <% end %>
+    </ul>
+
+    <h2 class="separator_top">Staff Members</h2>
+(Staff Members can add images to the slideshow, and appear in the staff list for the service.)
+    <ul id="service_members" class="member_list">
+    <%= render :partial => "member", :collection => @service.service_members, :locals => { :service => @service } %>
+    </ul>
+
+    <% form_tag service_service_members_url(@service), :style => "margin-top: 50px" do %>
+    <label>Add a New Collaborator</label>
+    <div class="input_frame">
+      <%= text_field_tag :username, "Start typing an Original Projects username... ",
+        :id => "user_search", :class => "wide", :autocomplete => "off" %>
+      <button type="submit">Add</button>
+    </div>
+    <% end %>
+  </div>
+</div>

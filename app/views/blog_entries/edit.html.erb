@@ -1,0 +1,18 @@
+<style type="text/css">
+div.input_frame {
+  width: 480px;
+}
+</style>
+<%= javascript_include_tiny_mce_if_used %>
+<%= tiny_mce if using_tiny_mce? %>
+<div id="content">
+  <h1>Edit Blog Entry</h1>
+
+  <% form_for [@project, @blog_entry], :builder => OriginalProjects::FormBuilder do |form| %>
+    <%= form.field_for :title %>
+    <%= form.field_for :content, :class => "mceEditor" %>
+    <br />
+    <button class="large green" type="submit">Save</button>
+  <% end %>
+</div>
+

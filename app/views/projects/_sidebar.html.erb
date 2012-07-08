@@ -1,0 +1,85 @@
+<div id="sidebar">
+  <%= render :partial => "shared/search_box" %>
+
+  <div class="module related">
+
+    <% if previous = @project.previous %>
+      <div id="previous_project">
+        <%= link_to(image_tag(previous.avatar_url(:thumbnail), :alt => previous.title), previous) %>
+        <div><span class="gray">Previous Project:</span><br/><%= link_to(previous.title, previous) %></div>
+        <br class="clear" />
+      </div>
+    <% end %>
+
+    <% if next_project = @project.next %>
+    <div id="next_project">
+      <%= link_to(image_tag(next_project.avatar_url(:thumbnail), :alt => next_project.title), next_project) %>
+      <div><span class="gray">Next Project:</span><br/><%= link_to(next_project.title, next_project) %></div>
+      <br class="clear" />
+    </div>
+    <% end %>
+
+  </div>
+
+  <div class="module related">
+    <% if logged_in? %>
+      <ul class="action_list">
+        <%= follow_join_and_like_project_links(:li, @project) %>
+        <li><%= link_to "Contact Originators", new_project_message_path(@project, :subject => "#{@project.title} on OriginalProjects.com", :return_to => project_path(@project)), :rel => "facebox" %></li>
+<li class="share_this">
+<script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=0e7e7132-399d-480b-b760-18d8a82ff812&amp;type=website&amp;buttonText=Share%20This%20Project"></script>
+</li>
+      </ul>
+    <% else %>
+          <ul class="action_list">
+      <li class="share_this">
+<script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=0e7e7132-399d-480b-b760-18d8a82ff812&amp;type=website&amp;buttonText=Share%20This%20Project"></script>
+</li>
+</ul>
+<br /><br />
+      <p>
+        Registered users of Original Projects can follow and participate in
+        projects. <%= link_to "Sign up today.", request_invite_path %>
+      </p>
+
+    <% end %>
+  </div>
+  <!--
+  <div class="module">
+  Featured Services
+  </div>
+
+    <% Service.visible.by_title.featured.sort_by { rand }.first(2).each do |service| -%>
+  
+  <div class="module">
+ <%= link_to_service(service, service.title) -%><br /><br />
+  <%= link_to(image_tag(service.avatar_url(:thumbnail), :alt => service.title, :style => 'float:left;margin-right:6px;'), service) %>
+ 
+  
+  <p style="font-size:10px;color:#666;"><%= service.short_description -%></p>
+  
+ 
+  <div style="clear:both;"></div>
+  </div>
+  <% end -%>
+-->
+    <div class="module">
+  Featured Projects
+    </div>
+
+  <% Project.visible.by_title.featured.sort_by { rand }.first(4).each do |project| -%>
+  
+  <div class="module">
+ <%= link_to_project(project, project.title) -%><br /><br />
+  <%= link_to(image_tag(project.avatar_url(:thumbnail), :alt => project.title, :style => 'float:left;margin-right:6px;'), project) %>
+ 
+  
+  <p style="font-size:10px;color:#666;"><%= project.opdescription -%></p>
+  
+ 
+  <div style="clear:both;"></div>
+  </div>
+  <% end -%>
+</div>
+
+<br class="clear" />

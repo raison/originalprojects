@@ -1,0 +1,12 @@
+<div id="content">
+  <%= render :partial => "form", :locals => { :return_to => params[:return_to], :title => @title, :resource => @resource, :message => @message } %>
+</div>
+
+<%  content_for :javascript do %>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    Recaptcha.create(recaptcha_public_key, document.getElementById('dynamic_recaptcha'));
+  });
+</script>
+<% end %>
+

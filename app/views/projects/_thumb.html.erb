@@ -1,0 +1,17 @@
+<% if project -%>
+<div class="project_container column col_50">
+  <%= link_to(image_tag(project.avatar_url(:small), :class => 'border'), project_path(project), :class => 'img_link') -%>
+	<div class="project_info">
+	  <h2>
+      <%= link_to project.title, project_path( project ) -%>
+    </h2>
+    <p>
+      <strong><%= if originators.count == 1 then "Originator" else "Originators" end %>:</strong> <%= originators.map(&:name).to_sentence %>
+    </p>
+    <p>
+      <strong><%= if originators.count == 1 then "Location" else "Locations" end %>:</strong>
+      <%= originators.map(&:location).to_sentence %>
+    </p>    
+	</div>
+</div>
+<% end -%>

@@ -1,0 +1,35 @@
+<div class="activity_blog_entry">
+  <%= image_link_to_profile(blog_entry.profile, :thumbnail) %>
+
+  <h3><%= blog_entry.title %></h3>
+
+  <%= blog_entry.content %>
+
+  <p class="activity_date">
+    <%= display_date(blog_entry.updated_at) %> &middot;
+    <%= link_to blog_entry.profile.name, blog_entry.profile %> &middot;
+    <%= link_to "Comment", "#", :class => "reply_toggle" %>
+  </p>
+
+  <div class="replies">
+    <% if blog_entry.remarks.present? %>
+      <ul>
+      <% blog_entry.remarks.each do |remark| %>
+        <li>
+          <%= image_link_to_profile remark.profile, :thumbnail %>
+          <p>
+            <strong><%= s remark.profile.name %>:</strong>
+            <%= s remark.content %>
+          </p>
+          <p class="date"><%= display_date(remark.updated_at) %></p>
+        </li>
+      <% end %>
+      </ul>
+    <% end %>
+
+    <% form_for [blog_entry.service, blog_entry, Remark.new], :id => "new_reply_#{blog_entry.id}" do |f| %>
+      <%= f.text_area :content, :rows => 5 %>
+      <button type="submit">Comment</button>
+    <% end %>
+  </div>
+</div>

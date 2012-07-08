@@ -1,0 +1,74 @@
+<% content_for :page_title, 'The place to share and cultivate your original projects' %>
+
+  <div id="home_blurb">
+    <h1>The place to share and cultivate your original projects.</h1>
+  </div>
+  <% if logged_in? %>
+        <p class="login_link"><a href="/projects">Let the collaboration begin &rarr;</a></p>
+    <% end %>
+  <% unless logged_in? %>
+    <div id="home_sign_in" class="rounded gray_box">
+      <% form_for :profile_session, :url => session_path do |form| %>
+      <div>
+        <div class="left">
+          <label for="username">Username</label><br/>
+          <%= form.text_field :username, :value => '' %><br/>
+        </div>
+        <div class="left">
+          <label for="password">Password</label><br/>
+          <%= form.password_field :password, :value => '', :class => "password_field" %><br/>
+        </div>
+        <button type="submit" class="left">Sign In</button>
+      </div>
+      <p>
+        <a href="forgot_password">Password Help</a>
+      </p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <br class="clear" />
+    <% unless logged_in? %><p class="promo_link">Ready to get started? <%= link_to "Learn more", tour_path %> about how it works and <%= link_to "sign up.", request_invite_path %></p> 
+    <% end %>
+
+  <div id="homepage_screenshots">
+    <div><img src="/images/featured/homepage/home-screenshot-1.jpg" alt="Blog About Your Projects">
+       <h2>Bring Ideas To Life</h2>
+       <p>Transform the ideas that inspire you into original projects. Cultivate them.</p>
+    </div>
+    <div><img src="/images/featured/homepage/home-screenshot-2.jpg" alt="Blog About Your Projects">
+        <h2>Find Your Niche</h2>
+        <p>Connect with others, not based on who you are, but what you do&#8212;and aspire to do.</p>
+     </div>
+     <div><img src="/images/featured/homepage/home-screenshot-3.jpg" alt="Connect ">
+         <h2>Work Together</h2>
+         <p>Share resources, whether money, time, knowledge, or experience. Help others.</p>
+      </div>
+      <div class="no_margin"><img src="/images/featured/homepage/home-screenshot-4.jpg">
+          <h2>Share Your Story</h2>
+          <p>Let the whole world (or just your chosen few) watch as your dream project unfolds.</p>
+       </div>
+       <br class="clear" />
+  </div><!-- closing #homepage_screenshots -->
+
+  <div id="homepage_featured">
+<% Project.visible.by_title.featured.sort_by { rand }.first(3).each_with_index do |project, index| -%>
+      <div <% if (index == 0) %>class="no_margin"<% end %>>
+       
+        <%= link_to(image_tag(project.avatar_url(:feature), :alt => project.title), project) %>
+        <h2><%= link_to_project(project, project.title) %></h2>
+        <p class="dark_gray"><%= project.opdescription -%></p>
+      </div>
+      <% end %>
+  </div>
+     
+
+    <br class="clear" />
+    <p>These are just a few of the projects on Original Projects. You can browse <%= link_to "projects", projects_path %> on the site to view more.</p>
+  </div><!-- closing #homepage_featured -->
+
+</div>
+
+<% content_for :javascript do %>
+<%= javascript_include_tag "flowplayer-3.1.4.min" %>
+<% end %>

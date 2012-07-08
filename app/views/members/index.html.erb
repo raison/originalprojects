@@ -1,0 +1,61 @@
+<div id="content">
+
+  <div class="column col_100">
+
+    <h1><%= @project.title %></h1>
+
+    <% if @project.membership_requests.any? %>
+
+    <h2>Membership Requests</h2>
+
+    <ul>
+    <% @project.membership_requests.each do |request| %>
+      <li>
+        <%= image_link_to_profile(request.profile, :thumbnail) %>
+        <%= link_to request.profile.name, request.profile %><br />
+
+        <% form_for :member, :url => project_members_url(@project) do |f| %>
+          <%= f.hidden_field :profile_id, :value => request.profile.id %>
+          <%= submit_tag "Approve" %>
+        <% end %>
+
+        <%= link_to "Deny", project_membership_request_url(@project, request), :method => :delete %>
+      </li>
+    <% end %>
+    </ul>
+
+    <% end %>
+
+    <h2 class="separator_top">Project Originators</h2>
+
+    <ul class="member_list">
+    <% @project.originators.each do |profile| %>
+      <li>
+        <%= image_link_to_profile(profile, :thumbnail) %>
+        <%= link_to profile.name, profile %>
+
+        <% unless profile == current_profile %>
+        <p class="options">
+          <%= link_to "message", new_profile_message_path(profile, :subject => @project.title), :rel => "facebox" %>
+        </p>
+        <% end %>
+      </li>
+    <% end %>
+    </ul>
+
+    <h2 class="separator_top">Project Members</h2>
+
+    <ul id="project_members" class="member_list">
+    <%= render :partial => "member", :collection => @project.members, :locals => { :project => @project } %>
+    </ul>
+
+    <% form_tag project_members_url(@project), :style => "margin-top: 50px" do %>
+    <label>Add a New Member</label>
+    <div class="input_frame">
+      <%= text_field_tag :username, "Start typing an Original Projects username... ",
+        :id => "user_search", :class => "wide", :autocomplete => "off" %>
+      <button type="submit">Add</button>
+    </div>
+    <% end %>
+  </div>
+</div>

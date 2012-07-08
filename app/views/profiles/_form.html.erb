@@ -1,0 +1,52 @@
+<% form_for setup_with(current_profile, :links), :url => my_profile_path, :html => { :multipart => true } do |form| -%>
+
+    <%= form.field_for :username %>
+
+    <%= form.field_for :display_name, :label => "First and Last Name" %>
+
+    <%= form.label :avatar, 'Upload Profile Image <span class="fade small_note">(Optional; replaces current image)</span>' %>
+    <br />
+    <div class="input_frame">
+      <div class="avatar">
+        <%= image_tag(current_profile.avatar.url(:avatar)) unless current_profile.avatar.blank? %>
+      </div>
+      <%= form.file_field :avatar, :size => 15 %>
+      <%= form.hidden_field :avatar_cache %>
+      <p class="smaller">Maximum file size of 5 MB. Avatars will be resized to be 174 pixels wide.</p>
+    </div>
+
+    <label>Your Links <span class="fade small_note">(Facebook, Twitter, LinkedIn, Flickr, etc.)</span></label><br/>
+    <div class="input_frame">
+      <div id="link_collection">
+        <% form.fields_for :links do |link_form| %>
+          <%= render :partial => 'link_form', :locals => {:form => link_form} %>
+        <% end %>
+      </div>
+      <button id="add_link">Add Another Link</button>
+    </div>
+
+    <%= form.field_for :city %>
+    <%= form.field_for :state %>
+    <%= form.field_for :zip %>
+    <%= form.field_for :country %>
+    <%= form.field_for :biography, :rows => 5 %>
+    <%= form.field_for :education, :rows => 5 %>
+    <%= form.field_for :employment, :rows => 5 %>
+    <%= form.field_for :hobbies, :rows => 5 %>
+    <%= form.field_for :skills, :rows => 5 %>
+    <%= form.field_for :pastproj, :rows => 5, :label => "My Past Original Projects" %>
+    <%= form.field_for :originalproj, :rows => 5, :label => "Projects I Think are Original"%>
+    <%= form.field_for :password, :as => :password_field, :class => "password_field" %>
+    <%= form.field_for :password_confirmation, :as => :password_field, :label => "Password Confirmation",
+     :class => "password_field" %>
+
+  <button class="large green" type="submit">Save Changes</button>
+
+  <% content_for :javascript do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+      setupMultiFields('link', <%= generate_form_template(form, :link, :class_name => 'ProfileLink') %>);
+    });
+  </script>
+  <% end %>
+<% end -%>

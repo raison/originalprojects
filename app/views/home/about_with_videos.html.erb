@@ -1,0 +1,101 @@
+<% content_for(:page_title) { 'What is Original Projects?' } %>
+
+<% content_for :javascript do %>
+<%= javascript_include_tag "flowplayer-3.1.4.min" %>
+<script type="text/javascript">
+  /*
+  flowplayer("player",
+    "http://original-projects.s3.amazonaws.com/movies/flowplayer-3.1.5.swf",
+    {
+      canvas: {
+        backgroundColor: '#000000',
+        backgroundGradient: 'none' },
+      clip:  {
+        baseUrl: "http://original-projects.s3.amazonaws.com/movies/",
+        autoPlay: false,
+        autoBuffering: true },
+      key: '$ac3e4646abf0ae03eaa',
+      playlist: [
+        {
+          url: 'introduction.flv',
+          title: 'Have an Idea?',
+          image: 'http://original-projects.s3.amazonaws.com/images/video_hand.jpg'
+        },
+        {
+          url: 'peopleyoudliketomeet.flv',
+          title: 'Get Stuff Done',
+          image: 'http://original-projects.s3.amazonaws.com/images/video_get_stuff_done_blue.jpg'
+        },
+        {
+          url: 'findyourniche.flv',
+          title: 'Find Your Niche',
+          image: 'http://original-projects.s3.amazonaws.com/images/video_niche.jpg'
+        },
+        {
+          url: 'letthecollaborationbegin.flv',
+          title: 'Let the Collaboration Begin',
+          image: 'http://original-projects.s3.amazonaws.com/images/video_collab.jpg'
+        },
+        {
+          url: '7.flv',
+          title: 'Original Projects',
+          image: 'http://original-projects.s3.amazonaws.com/images/video_wall.jpg'
+        } ],
+      plugins: {
+        controls: {
+        playlist: true,
+         durationColor: '#999999',
+          tooltipColor: '#5F747C',
+          bufferGradient: 'none',
+          volumeSliderColor: '#000000',
+          buttonOverColor: '#728B94',
+          timeBgColor: '#555555',
+          sliderColor: '#919191',
+          sliderGradient: 'none',
+          backgroundGradient: 'none',
+          borderRadius: '0px',
+          backgroundColor: '#919191',
+          progressGradient: 'medium',
+          volumeSliderGradient: 'none',
+          buttonColor: '#666666',
+          progressColor: '#a3a3a3',
+          bufferColor: '#666666',
+          timeColor: '#dbdbdb',
+          tooltipTextColor: '#ffffff',
+          height: 32,
+          opacity: 1.0 } } } );
+
+  flowplayer().onLoad(
+    function() {
+      this.play( "<%= @clip || 'introduction' -%>.flv" );
+    } )
+
+  function playMovie( movie ) {
+    flowplayer().play( movie + '.flv' );
+  }
+  */
+</script>
+<% end -%>
+
+<div id="content">
+
+   <!--
+   <div id="video_frame" style="width: 584px; height: 394px;">
+     <div id="player" href="http://original-projects.s3.amazonaws.com/movies/introduction.flv" style="width: 584px; height: 394px;"></div>
+   </div>
+   -->
+
+   <h1>What is Original Projects?</h1>
+
+   <p><em>Creative content. Robust technology. Entrepreneurial business activity. Fun.</em></p>
+
+   <p>Original Projects is the social network for ideas. It's collaborative, innovative, educative, fun, and fresh. We are a destination where people come together to develop entrepreneurial ideas, projects, and startup companies at an accelerated pace. Through our unique platform, users showcase their ideas and expertise, and collaborate on creative
+      projects and businesses from the idea stage through production and marketing.</p>
+
+   <p>Far too often, great ideas are never realized because the process of executing them can be complex and frustrating. At the same time, people with expertise or knowledge valuable to innovators and entrepreneurs wish they could apply it to something new that sparks their interest and taps into their creativity. We connect inventors, innovators, artists, entrepreneurs, investors, project managers, lawyers, accountants, consultants, programmers, engineers, designers, and other professionals and service providers, as well as interested amateurs, so that ideas and dreams become reality.</p>
+
+   <p>Finally, Original Projects is entertainment that features projects, profiles, and original content that inspires creativity and documents the art of possibility. So dive in, find your project, and change your world.</p>
+
+
+</div>
+

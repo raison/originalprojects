@@ -1,0 +1,41 @@
+embed_images: off
+
+# There is a bug preventing code from working correctly if compressed.
+compress_assets: off
+
+javascripts:
+  common:
+    - public/javascripts/jquery.js
+    - public/javascripts/jquery-ui.js
+    - public/javascripts/jrails.js
+    - public/javascripts/jquery.ui.autocomplete.js
+    - public/javascripts/jquery.ui.autocomplete.ext.js
+    - public/javascripts/facebox.js
+    - public/javascripts/recaptcha_ajax.js
+    - public/javascripts/application.js
+  logged_in_only:
+    - public/javascripts/user_voice.js
+  project_page:
+    - public/javascripts/jquery.history_remote.js
+    - public/javascripts/jquery.tabs.js
+    - public/javascripts/jcarousellite.js
+  service_page:
+    - public/javascripts/jquery.history_remote.js
+    - public/javascripts/jquery.tabs.js
+    - public/javascripts/jcarousellite.js   
+  profile_page:
+    - public/javascripts/jquery.history_remote.js
+    - public/javascripts/jquery.tabs.js
+  ie_fixes:
+    - public/javascripts/correct_png.js
+
+stylesheets:
+  common:
+    - public/stylesheets/screen.css
+    - public/stylesheets/console.css
+  project_page:
+    - public/stylesheets/jquery_tabs.css
+  service_page:
+    - public/stylesheets/jquery_tabs.css    
+  profile_page:
+    - public/stylesheets/jquery_tabs.css

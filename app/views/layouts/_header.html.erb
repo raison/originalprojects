@@ -1,0 +1,25 @@
+<div id="header">
+  <a id="top"></a>
+  <div id="logo">
+    <a href="/">
+      <%= image_tag "logo_originalprojects_beta.png", :alt => "Original Projects logo" %>
+    </a>
+  </div>
+
+  <div id="nav_top">
+    <ul>
+      <% if logged_in? -%>
+        <%= link_to_section [:dashboard, current_profile.username], dashboard_url, :li, :id => 'nav_username' %>
+        <li id="nav_sign_out"><%= link_to "sign out", logout_path, :method => :delete %></li>
+        <!-- <%= link_to_section ["services", "services"], services_path, :li %> -->
+        <%= link_to_section ["projects", "projects"], projects_path, :li %>
+      <% else -%>
+        <%= link_to_section "sign in", login_path, :li %>
+        <%= link_to_section "sign up", request_invite_path, :li %>
+	<!-- <%= link_to_section ["services", "services"], services_path, :li %> -->
+        <%= link_to_section ["projects", "projects"], projects_path, :li %>
+      <% end %>
+      <%= link_to_section "take a tour", tour_path, :li %>
+    </ul>
+  </div>
+</div>

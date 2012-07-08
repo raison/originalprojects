@@ -1,0 +1,16 @@
+#overlay_outer
+  #overlay_inner
+    %a#overlay_image_link.img_link{ :href => '' }
+      %img#overlay_image.left{ :src => '' }
+  #close_box
+    %a.img_link{ :href => '#', :onclick => "javascript:hideOverlay();" }
+      %img{ :src => "/images/overlay_close.png", :alt => 'close' }
+  #overlay_details
+    %h1#overlay_title
+    %p#overlay_originator
+    %p#overlay_location
+    %p#overlay_excerpt
+    %p{ :style => "margin-top: 35px;" }
+      %a#overlay_more_link.project_link{ :href => "" }
+        Learn More
+        %strong &gt;

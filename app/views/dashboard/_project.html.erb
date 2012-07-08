@@ -1,0 +1,17 @@
+<div class="gray_box rounded">
+  <div class="project_image <%= 'inactive' if !project.active? %>">
+    <%= link_to(image_tag(project.avatar_url, :alt => project.title), project_path(project), :class => "img_link") %>
+    <h3>
+      <%= link_to project.title, project_path(project) %>
+      <% if current_profile.can_edit?(project) %>
+        <span class="related_action">[<%= link_to "edit", edit_project_url(project) %>]</span>
+      <% end %>
+    </h3>
+    <p class="originator">
+      <%= originators(project) %>
+    </p>
+    <p class="last_updated">
+      Last updated on <%= project.updated_at.strftime("%Y-%m-%d") %>.
+    </p>
+  </div>
+</div>

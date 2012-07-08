@@ -1,0 +1,13 @@
+# Typus Models Configuration File
+#
+# Use the README file as a reference to customize settings.
+
+Category:
+  fields:
+    list: content, description, type
+    form: content, description, type
+  order_by: 
+
+  search: 
+  application: Services
+

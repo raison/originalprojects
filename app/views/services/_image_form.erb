@@ -1,0 +1,11 @@
+<div class="image">      
+  <% if form.object.new_record? %>
+    <%= form.file_field :attachment, :class => 'with_icon' %>
+  <% else %>
+    <%= image_tag form.object.attachment.url(:thumbnail), :class => 'service_image' %>
+    <div class="delete_image_field">
+      <%= form.check_box '_delete' %>
+      <%= form.label(:_delete, "Delete") %>
+    </div>
+  <% end %>
+</div>

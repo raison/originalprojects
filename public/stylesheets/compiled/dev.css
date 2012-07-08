@@ -1,0 +1,23 @@
+fieldset {
+  border: none; }
+  fieldset ol {
+    list-style-type: none; }
+    fieldset ol li {
+      margin: 10px 5px; }
+    fieldset ol li.error {
+      color: red; }
+      fieldset ol li.error label {
+        font-weight: bold; }
+  fieldset label, fieldset .label {
+    display: block;
+    font-size: 150%; }
+  fieldset abbr[title='required'] {
+    display: none; }
+  fieldset input[type='checkbox'] {
+    margin-right: 5px; }
+
+#home {
+  height: auto; }
+
+h1 {
+  font-size: 200%; }

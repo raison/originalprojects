@@ -1,0 +1,29 @@
+<% content_for :sidebar do %>
+  <%= typus_block :location => @resource[:self], :partial => 'sidebar' %>
+  <%= actions %>
+  <%= export %>
+  <%= search %>
+  <%= filters %>
+<% end %>
+
+<h2>Send An Invitation</h2>
+
+<%= error_messages_for :invitation %>
+
+<% form_for :invitation, :url => {:controller => 'admin/invitations', :action => 'send_invite'} do |form| %>
+  <fieldset class="inputs">
+    <ol>
+      <li>
+        <%= form.label :email %>
+        <%= form.text_field :email %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="buttons">
+    <ol>
+      <li>
+        <%= submit_tag "Send invitation" %>
+      </li>
+    </ol>
+  </fieldset>
+<% end %>

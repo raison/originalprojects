@@ -1,0 +1,142 @@
+<div id="content">
+  <div class="column col_30">
+    <div id="profile_polaroid">
+      <img src="<%= @profile.avatar.url(:avatar) %>" alt="<%= @profile.display_name %>" />
+    </div>
+
+    <div class="more_profile_info">
+      <ul>
+        <li><strong>Location:</strong> <%= @profile.city %>, <%= @profile.state %></li>
+        <li><strong>Joined On:</strong> <%= @profile.created_at.strftime("%B %e, %Y") %></li>
+        <% if @profile.current_login_at.present? %>
+        <li><strong>Last Login:</strong>
+          <%= @profile.current_login_at.strftime("%B %e, %Y") %>
+        </li>
+        <% end %>
+        <% profile = @profile %>
+        <li><%= link_to "Send a message", new_profile_message_path(profile), :rel => "facebox" %></li>
+      </ul>
+    </div>
+
+    <div id="user_activity_feed">
+      <h2>Recent Activity</h2>
+
+      <ul>
+        <% Activity.for_profile(@profile).latest(10).each do |activity| %>
+        <%= activity_for_profile(activity) %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="column col_70">
+
+    <h1 class="top"><span class="gray">People:</span> <%= @profile.display_name %></h1>
+
+    <div id="tabs">
+      <ul>
+        <li><a class="first" href="#projects">Projects</a></li>
+        <li><a href="#activity">Activity</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <br class="clear" />
+
+      <div id="projects" class="anchor">
+        
+        <% if @originated_projects.any? %>
+        <h2>Projects I've Originated&hellip;</h2>
+        <%= render :partial => "project", :collection => @originated_projects %>
+        <% end %>
+
+        <% if @collaborating_projects.any? %>
+        <h2>Projects I'm Collaborating On&hellip;</h2>
+        <%= render :partial => "project", :collection => @collaborating_projects %>
+        <% end %>
+
+        <% if @followed_projects.any? %>
+        <h2>Projects I'm Following&hellip;</h2>
+        <%= render :partial => "project", :collection => @followed_projects %>
+        <% end %>
+      </div>
+
+      <div id="activity" class="anchor">
+        <h2>Activity</h2>
+
+        <% Activity.for_profile(@profile).latest(10).each do |activity| %>
+        <div class="activity_update">
+          <%= image_link_to_profile(activity.profile, :thumbnail) unless activity.profile.nil? %>
+          <p><%= activity_to_html(activity) %></p>
+          <p class="activity_date">
+            <%= display_date(activity.updated_at) %>
+          </p>
+        </div>
+        <% end %>
+      </div>
+
+      <div id="about" class="anchor">
+
+        <% if @profile.biography.present? %>
+        <h2>Biography</h2>
+
+        <%= simple_format(html_escape(@profile.biography)) %>
+        <% end %>
+        
+        <% if @profile.education.present? %>
+        <h2>Education</h2>
+
+        <%= simple_format(html_escape(@profile.education)) %>
+        <% end %>
+        
+        <% if @profile.employment.present? %>
+        <h2>Employment</h2>
+
+        <%= simple_format(html_escape(@profile.employment)) %>
+        <% end %>
+        
+        <% if @profile.hobbies.present? %>
+        <h2>Hobbies</h2>
+
+        <%= simple_format(html_escape(@profile.hobbies)) %>
+        <% end %>  
+        
+        <% if @profile.skills.present? %>
+        <h2>Skills</h2>
+
+        <%= simple_format(html_escape(@profile.skills)) %>
+        <% end %>  
+        
+        <% if @profile.pastproj.present? %>
+        <h2>Past Original Projects</h2>
+
+        <%= simple_format(html_escape(@profile.pastproj)) %>
+        <% end %>
+        
+        <% if @profile.originalproj.present? %>
+        <h2>Projects I Think are Original</h2>
+
+        <%= simple_format(html_escape(@profile.originalproj)) %>
+        <% end %>                   
+               
+
+        <% if @profile.links.any? %>
+        <h2>Links</h2>
+
+        <ul>
+          <% @profile.links.each do |link| %>
+          <li><%= link_to "#{link.url} <span class=\"external\">&rarr;</span></a>", link.url %></li>
+          <% end %>
+        </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <br class="clear" />
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      $("#tabs").tabs();
+    });
+  </script>
+<% end %>

@@ -1,0 +1,77 @@
+<% content_for :page_title, "Dashboard" %>
+
+<div id="content">
+
+  <div class="column col_100">
+
+      <div id="user_info_box">
+        <div id="user_avatar" class="gray_box rounded">
+          <%= image_link_to_profile(current_profile, :small) %>
+        </div>
+        <h1>
+          <%= current_profile.display_name %>
+          <span class="related_action smaller">[<%= link_to "edit", edit_profile_path %>]</span>
+        </h1>
+
+        <p class="larger">
+          <%= current_profile.location %><br />
+          <%= current_profile.country %>
+        </p>
+        <p>
+          <%= link_to "You've Originated #{pluralize(@projects[:originated].size, 'project')}", my_projects_url(:anchor => "originated") %>
+          <br />
+          <%= link_to "You're a Member of #{pluralize(@projects[:collaborating].size, 'project')}", my_projects_url(:anchor => "collaborating") %>
+          <br />
+          <%= link_to "You're Following #{pluralize(@projects[:following].size, 'project')}", my_projects_url(:anchor => "following") %>
+        </p>
+        
+      <p class="clear" />
+    </div><!-- closing #user_info_box -->
+  </div><!-- closing col_100-->
+
+  <div class="column col_30">
+    <div id="project_listing">
+      <a class="large_button" href="projects/new/">Start a New Project &rarr;</a>
+      <% if @projects[:originated].any? %>
+      <h2>Projects I've Originated</h2>
+      <%= render :partial => "project", :collection => @projects[:originated][0,3] %>
+      <p class="show_all"><%= link_to "Show All &raquo;", my_projects_url(:anchor => "originated") %></p>
+      <% end %>
+
+      <% if @projects[:collaborating].any? %>
+      <h2>Projects I'm Collaborating On</h2>
+      <%= render :partial => "project", :collection => @projects[:collaborating][0,3] %>
+      <p class="show_all"><%= link_to "Show All &raquo;", my_projects_url(:anchor => "collaborating") %></p>
+      <% end %>
+
+      <% if @projects[:following].any? %>
+      <h2>Projects I'm Following</h2>
+      <%= render :partial => "project", :collection => @projects[:following][0,3] %>
+      <p class="show_all"><%= link_to "Show All &raquo;", my_projects_url(:anchor => "following") %></p>
+      <% end %>
+    </div><!-- closing project_listing -->
+  </div><!-- closing col_30 -->
+
+  <div class="column col_70">
+    <div id="activity_feed">
+      <h2>Activity Feed</h2>
+      <ul>
+        <% if @activity.present? %>
+          <% @activity.each do |activity| %>
+          <li>
+          <%= image_tag activity.project.avatar_url(:thumbnail) %>
+          <%= activity_to_html(activity) %><br />
+          <span class="gray"><%= display_date(activity.updated_at) %></span>
+          </li>
+          <% end %>
+        <% else %>
+          <p>In order to see activity, you have to follow some projects.
+            <%= link_to "Take a look at these original projects.", projects_path %>
+          </p>
+        <% end %>
+      </ul>
+    </div><!-- closing activity_feed -->
+  </div><!-- closing col_70 -->
+
+
+</div><!-- closing #content -->

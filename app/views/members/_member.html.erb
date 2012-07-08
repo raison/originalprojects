@@ -1,0 +1,11 @@
+<li>
+  <%= image_link_to_profile(member, :thumbnail) %>
+  <%= link_to member.name, member %>
+  <p class="options">
+    <%= link_to "message", new_profile_message_path(member, :subject => project.title), :rel => "facebox" %> |
+    <%= link_to "promote", promote_project_member_url(project, member), :method => :post,
+          :confirm => "Promote #{member.name} to originator?" %> |
+    <%= link_to "remove", project_member_url(project, member), :method => :delete,
+          :confirm => "Remove #{member.name} from #{project.title}?" %>
+  </p>
+</li>

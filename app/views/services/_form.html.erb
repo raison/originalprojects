@@ -1,0 +1,106 @@
+<style type="text/css">
+div.input_frame {
+  width: 480px;
+}
+</style>
+<%= javascript_include_tiny_mce_if_used %>
+<%= tiny_mce if using_tiny_mce? %>
+
+<% form_for setup_with(@service, :images), :html => { :multipart => true }, :builder => OriginalProjects::FormBuilder do |form| %>
+
+
+
+    <% form.field_for :title, :label => "Service Title", :autocomplete => 'off' do %>
+      <%= form.hidden_field :slug %>
+      <p class="small_note">originalprojects.com/services/<span id="service_slug_display"><%= @service.slug %></span></p>
+      <p id="project_slug_error" class="hidden small_note error">Sorry, that service title is already taken. Please choose something else.</p>
+    <% end %>
+    
+    <input type="hidden" name="service[category]" value="All" />
+    <!--
+  	<label>Category</label>
+  	<div class="input_frame">
+	<%= form.collection_select("category",Category.find(:all), :content, :content, {:prompt => 'Select Category'}) %><br /><br />
+</div>
+-->
+    <%= form.field_for :short_description, :rows => 3, :maxlength => 150, :label => "Service Tagline", :note => "Please describe your service in 150 characters or less." %>
+
+    <%= form.field_for :description, :class => "mceEditor", :label => "Service Description", :note => "Please provide a high-level description of your service." %>
+        <%= form.field_for :servicelist, :class => "mceEditor", :label => "List of Services", :note => "What are the details of your service (individual products, pricing, etc.?)" %>
+
+    <%= form.field_for :location, :rows => 4, :note => "Where is your service located? (e.g., Durham, NC; Paris, France; anywhere)" %>
+
+    <%= form.field_for :tag_list, :rows => 4, :label => "Tag List", :as => :text_area,
+        :note => "Enter a comma-separated list of words or phrases that describe your service. These tags will help people find your service via search."
+    %>
+
+      <div class="input_frame">
+        <%= form.check_box(:public) %>
+        Make this service public (any user can access the service, and it is displayed in the service directory)
+      </div>
+      <input type="hidden" name="service[membership_status]" value="closed" />
+
+      <!--
+            <label>Membership Status</label>
+      <br />
+      <div class="input_frame">
+        <ul>
+          <li>
+            <%= form.radio_button :membership_status, "invite" %>
+            <strong>Invite Only</strong> (only users you invite, or invite requests you approve,
+            can join the project as a team member)
+          </li>
+          <li>
+            <%= form.radio_button :membership_status, "closed" %>
+            <strong>Closed</strong> (the project is not looking for new team members)
+          </li>
+        </ul>
+      </div>
+-->
+      <label>Choose a Service Avatar <span class="fade small_note">(JPG, GIF, or PNG format)</span></label>
+      <br />
+      <div class="input_frame" style="overflow: hidden">
+        <div class="avatar">
+          <%= image_tag(@service.avatar.url(:avatar)) unless @service.avatar.blank? %>
+        </div>
+        <%= form.file_field :avatar, :size => 15 %>
+        <%= form.hidden_field :avatar_cache %>
+        <p class="smaller">Maximum file size of 5 MB. Avatars will be resized to be 174 pixels wide.</p>
+      </div>
+
+      <label>Upload Images <span class="fade small_note">(JPG, GIF, and PNG formats accepted)</span></label>
+      <br/>
+
+      <div class="input_frame">
+        <% if @service.errors.on("images.attachment").present? -%>
+          <p class="error">
+            You attempted to upload a disallowed file type. JPG, GIF, and PNG formats are accepted.
+          </p>
+        <% end -%>
+        <div id="image_collection">
+          <% form.fields_for :images do |image_form| %>
+            <%= render :partial => 'image_form', :locals => {:form => image_form} %>
+          <% end %>
+        </div>
+        <button id="add_image">Add Another Image</button>
+        <p class="smaller">Maximum file size of 5 MB. Images will be resized to fit in a 453×360 slideshow.</p>
+      </div>
+
+      <%= form.field_for :url, :rows => 1, :size => 10, :label => "Service Website" %>
+      <%= form.field_for :email, :rows => 1, :size => 10, :label => "Service Email Address" %>
+
+      <p>
+        <button class="large green" type="submit">Save Changes</button>
+        (Note: all settings can easily be edited even after they’ve been saved.)
+      </p>
+
+
+  <% content_for :javascript do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+      setupMultiFields('image', <%= generate_form_template(form, :image) %>);
+    });
+  </script>
+  <% end %>
+
+<% end %>

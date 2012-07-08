@@ -1,0 +1,49 @@
+<div id="sidebar">
+  <%= render :partial => "shared/search_box" %>
+
+  <div class="module related">
+
+    <% if previous = @service.previous %>
+      <div id="previous_project">
+        <%= link_to(image_tag(previous.avatar_url(:thumbnail), :alt => previous.title), previous) %>
+        <div><span class="gray">Previous Service:</span><br/><%= link_to(previous.title, previous) %></div>
+        <br class="clear" />
+      </div>
+    <% end %>
+
+    <% if next_service = @service.next %>
+    <div id="next_project">
+      <%= link_to(image_tag(next_service.avatar_url(:thumbnail), :alt => next_service.title), next_service) %>
+      <div><span class="gray">Next Service:</span><br/><%= link_to(next_service.title, next_service) %></div>
+      <br class="clear" />
+    </div>
+    <% end %>
+
+  </div>
+
+  <div class="module related">
+
+      <ul class="action_list">
+        
+<li class="share_this">
+<script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=0e7e7132-399d-480b-b760-18d8a82ff812&amp;type=website&amp;buttonText=Share%20This%20Service"></script>
+</li>
+      </ul>
+    </div>
+
+  <% Project.visible.by_title.featured.sort_by { rand }.first(4).each do |project| -%>
+  
+  <div class="module">
+ <%= link_to_project(project, project.title) -%><br /><br />
+  <%= link_to(image_tag(project.avatar_url(:thumbnail), :alt => project.title, :style => 'float:left;margin-right:6px;'), project) %>
+ 
+  
+  <p style="font-size:10px;color:#666;"><%= project.opdescription -%></p>
+  
+ 
+  <div style="clear:both;"></div>
+  </div>
+  <% end -%>
+</div>
+
+<br class="clear" />

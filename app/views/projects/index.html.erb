@@ -1,0 +1,15 @@
+<div id="content">
+
+  <h1>All Projects</h1>
+
+  <% @projects.each do |project| -%>
+  <%= render :partial => 'thumb', :locals => {:project => project, :originators => project.originators} %>
+  <% end -%>
+
+  <br class="clear" />
+
+  <p>
+    <a href="#top"><span class="arrow">&#8593;</span> Top of page</a>
+  </p>
+
+</div>

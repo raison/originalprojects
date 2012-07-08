@@ -1,0 +1,17 @@
+<% if service -%>
+<div class="service_container"<% if service.featured %> style="background:#EAF5F9;border: 1px solid;border-color: #AED8E8;"<% end %><% if !service.featured %> style="border: 1px solid;border-color: #cccccc;"<% end %>>
+
+  <%= link_to(image_tag(service.avatar_url(:small), :class => 'border'), service_path(service), :class => 'img_link') -%>
+	<div class="service_info">
+	<% if service.featured %><div style="float:right;background:#AED8E8;color:white;margin-top:-16px;margin-right:-30px;padding:4px;" class="rounded">featured service</div><% end %>
+	  <h2>
+      <%= link_to service.title, service_path( service ) -%>
+      </h2>
+    <p><b>Category:</b> <%= service.category %><br />
+    <b>Location:</b> <%= service.location %><br />
+   
+		<%= service.short_description %>
+       </p>
+	</div>
+</div>
+<% end -%>

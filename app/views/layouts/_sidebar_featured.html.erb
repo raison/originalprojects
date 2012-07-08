@@ -1,0 +1,39 @@
+
+
+<!--
+  <div class="module related">
+  Featured Services
+  </div>
+
+    <% Service.visible.by_title.featured.sort_by { rand }.first(2).each do |service| -%>
+  
+  <div class="module">
+ <%= link_to_service(service, service.title) -%><br /><br />
+  <%= link_to(image_tag(service.avatar_url(:thumbnail), :alt => service.title, :style => 'float:left;margin-right:6px;'), service) %>
+ 
+  
+  <p style="font-size:10px;color:#666;"><%= service.short_description -%></p>
+  
+ 
+  <div style="clear:both;"></div>
+  </div>
+  <% end -%>
+-->
+    <div class="module">
+  Featured Projects
+    </div>
+
+  <% Project.visible.by_title.featured.sort_by { rand }.first(4).each do |project| -%>
+  
+  <div class="module">
+ <%= link_to_project(project, project.title) -%><br /><br />
+  <%= link_to(image_tag(project.avatar_url(:thumbnail), :alt => project.title, :style => 'float:left;margin-right:6px;'), project) %>
+ 
+  
+  <p style="font-size:10px;color:#666;"><%= project.opdescription -%></p>
+  
+ 
+  <div style="clear:both;"></div>
+  </div>
+  <% end -%>
+  

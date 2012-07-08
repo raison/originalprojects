@@ -1,0 +1,36 @@
+<% content_for :page_title, 'Intro to Services' %>
+
+<div id="content">
+  <div class="column col_75" style="width:330px;">
+  <div id="contact" class="gray_box rounded" style="width:300px;">
+Contact Original Projects about this unique and selective opportunity to become an Original Service Provider.
+      
+      <% form_tag services_intro_url, :id => "contact_op" do %>
+        <div>
+           
+          <label for="contact_comments">Description of your Service</label><br/>
+          <textarea name="contact[comments]" id="contact_comments" rows="0" cols="0"></textarea>
+          
+       
+           <input type="hidden" name="contact[subject]" id="contact_subject" value="Service Provider Application" />
+
+          <label for="contact_name">Your Name</label><br/>
+          <input name="contact[name]" id="contact_name" size="30" type="text" value="" /><br/>
+
+          <label for="contact_email">Email Address</label><br/>
+          <input name="contact[email]" id="contact_email" size="30" type="text" value="" />
+
+          
+          <br clear="all">
+          <button type="submit" name="submit">Send Your Application</button>
+
+        </div>
+      <% end %>       
+    </div>
+  </div>
+  <div>  
+<img src="/images/service_intro.jpg" /><br /><br />
+<h2>&nbsp;&nbsp;We look forward to working with you.</h2>
+   </div> 
+  </div>
+</div>

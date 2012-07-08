@@ -1,0 +1,64 @@
+<div id="content">
+<div style="float:left;display:inline;">
+<h1>Services</h1>
+</div>
+<div style="float:right;display:inline;padding-right:40px;">
+    <ul class="service_filter">
+
+      <li><span style="position:relative;top:10px;padding:4px;background:#efefef;color:#666666;margin:6px;border:1px solid #cccccc;" class="rounded">sort by</li>
+      <li class="first"><a href="/services/?sort=a-z&category=<%= params['category'] %>"<% if params[:sort] == "a-z" || !params[:sort] %> class="active"<% end %>>A-Z</a></li>
+      <li><a href="/services/?sort=location&category=<%= params['category'] %>"<% if params[:sort] == "location" %> class="active"<% end %>>Location</a></li>
+      <li class="last"><a href="/services/?sort=category&category=<%= params['category'] %>"<% if params[:sort] == "category" %> class="active"<% end %>>Category</a></li>
+<% if logged_in? %>
+<li><a class="small_button rounded" style="margin-left:24px;" href="/services_intro">Add your Service &rarr;</a></li>
+<% end %>
+    </ul>
+
+</div>
+<div style="clear:both;"></div>
+ <div class="column col_25" style="height:800px;">
+   <div id="category_box" class="avatar_box_side" style="width:158px;padding:0px;">
+    <div class="avatar_box_side_title">
+      <h2>Categories</h2>
+      </div>
+       <ul class="service_categories">
+       
+       <li>
+      <a href="/services/?category=All" style="border-top:0px;"<% if params[:category] == "All" || !params[:category] || params[:category] == ""%> class="active"<% end %>>All</a>
+      </li>
+<!--      
+  <% @categories.each do |category| -%>
+  
+<li>
+  <a href="/services/?sort=<%= params['sort'] %>&category=<%= category.content %>&page=1"<% if params[:category] == category.content %> class="active"<% end %>><%= category.content %></a>
+</li>
+  <% end -%>
+  -->
+  </ul>
+<div style="clear:both;"></div>
+</div>
+</div>
+<div class="column_75">
+  
+  <% @services.each do |service| -%>
+  <%= render :partial => 'thumb', :locals => {:service => service} %>
+  <% end -%>
+  
+    <div class="service_container" style="border: 1px solid;border-color: #cccccc;">
+  <a href="/services_intro" class="img_link"><img alt="Add a Service" class="border" src="/images/avatar_originalprojects.png" /></a>	<div class="project_info">
+	  <h2>
+      <a href="/services_intro">Add a service</a>      
+    </h2>
+    <p>Contact Original Projects about this unique and selective opportunity to become an Original Service Provider.</p>    
+	</div>
+</div>
+
+
+<p><%= will_paginate @services %></p>
+  <br class="clear" />
+
+  <p>
+    <a href="#top"><span class="arrow">&#8593;</span> Top of page</a>
+  </p>
+</div>
+</div>

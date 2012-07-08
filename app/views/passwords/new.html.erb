@@ -1,0 +1,17 @@
+<% content_for :page_title, 'Reset Your Password' %>
+
+<div id="content">
+  <h1>Reset Your Password</h1>
+
+  <p>Enter your email address and we'll send a link to reset your password.</p>
+
+  <% form_tag passwords_url do %>
+    <%= label_tag :email, 'Your Email Address' %>
+    <div class="input_frame">
+      <%= text_field_tag :email, nil, :class => "wide"  %>
+    </div>
+
+    <%= submit_tag "Reset Password" %>
+  <% end %>
+</div>
+

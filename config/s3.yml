@@ -1,0 +1,16 @@
+keys: &access
+  access_key_id: 1G9QA0G3K1FK0DR8G6R2
+  secret_access_key: LF710eTL+noH02vZinMbXJr85PPDyyscCFHHhcDx
+  
+development:
+  <<: *access
+  bucket: original-projects-development
+  
+production:
+  <<: *access
+  bucket: original-projects-production
+
+test:
+  <<: *access
+  bucket: original-projects-test
+ 

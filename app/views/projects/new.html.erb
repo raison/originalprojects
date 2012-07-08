@@ -1,0 +1,41 @@
+<% content_for :page_title, "Start a New Project" %>
+
+<div id="content">
+  <h1>Start a New Project</h1>
+  <%= render(:partial => 'form') %>
+</div>
+
+<% content_for :javascript do %>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function () {
+    var ajaxReady = true;
+    var currentRequest = null;
+
+    var slugCheck = function () {
+      if ($('#project_title').val() == '') {
+        $('#project_slug_display').text("your-title-here");
+      } else {
+        if (currentRequest) {
+          window.clearTimeout(currentRequest);
+        }
+
+        currentRequest = window.setTimeout(function () {
+          $.get('/projects/slug_check', {title: $('#project_title').val()}, function (data) {
+            $('#project_slug').val(data.slug);
+            $('#project_slug_display').text(data.slug);
+            if (data.unique) {
+              $('#project_slug_error').hide();
+            } else {
+              $('#project_slug_error').show();
+            }
+          }, 'json');
+        }, 200);
+      }
+    };
+
+    $('#project_title').bind('keyup', slugCheck);
+    $('#project_title').bind('change', slugCheck);
+    slugCheck();
+  });
+</script>
+<% end %>

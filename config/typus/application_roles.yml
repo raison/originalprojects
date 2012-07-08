@@ -1,0 +1,14 @@
+# Typus Roles Configuration File
+#
+# Use the README file as a reference to customize settings.
+
+admin:
+  Activity: create, read, update, delete
+  Interest: create, read, update, delete
+  Invite: create, read, update, delete
+  InviteRequest: create, read, update, delete, send_invite
+  Membership: create, read, update, delete
+  MembershipRequest: create, read, update, delete
+  Profile: create, read, update, delete
+  ProfileLink: create, read, update, delete
+  Project: create, read, update, delete

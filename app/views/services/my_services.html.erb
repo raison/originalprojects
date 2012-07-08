@@ -1,0 +1,51 @@
+<% content_for :page_title, "My Services" %>
+
+<div id="content">
+
+  <div class="column col_100">
+
+    <h1 class="left">My Services</h1>
+
+    <ul class="project_filter">
+      <li class="first"><%= link_to "All", "#", :class => "active" %></li>
+      <li><%= link_to "Originated", "#originated", :class => "originated" %></li>
+      <li class="last"><%= link_to "Collaborating", "#collaborating", :class => "collaborating" %></li>
+    </ul>
+
+    <div id="primary_actions">
+    <% if current_profile.serviceowner? %>
+    	<% if !@services[:originated].any? %>
+    		<a class="large_button" href="services/new/">Set up my Service &rarr;</a>
+    	<% end %>
+    	
+     <% else %>
+      <a class="large_button" href="/services_intro">Add a Service &rarr;</a>
+      <% end %>     
+    </div>
+
+    <br class="clear" />
+
+    <div id="my_projects">
+      <% if @services[:originated].any? %>
+      <div class="categories rounded originated projects">
+        <h2>Services I've Originated</h2>
+        <%= render :partial => "service", :collection => @services[:originated] %>
+      </div>
+      <% end %>
+
+      <% if @services[:collaborating].any? %>
+      <div class="categories rounded collaborating projects">
+        <h2>Services I'm Collaborating On </h2>
+        <%= render :partial => "service", :collection => @services[:collaborating] %>
+      </div>
+      <% end %>
+
+      <% if @services[:following].any? %>
+      <div class="categories rounded following projects">
+        <h2>Services I'm Following</h2>
+        <%= render :partial => "service", :collection => @services[:following] %>
+      </div>
+      <% end %>
+    </div><!-- closing #my_projects -->
+  </div><!-- closing column -->
+</div><!-- closing #content -->

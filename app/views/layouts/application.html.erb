@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <meta http-equiv="content-script-type" content="text/javascript" />
+    <title>Original Projects - <%= yield(:page_title) %></title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+	<%= stylesheet_link_merged :base, :media => :all %>
+    <%= yield(:head) %>
+    <!--[if lt IE 7]>
+      <%= javascript_include_merged :ie_fixes %>
+    <![endif]-->
+        <%= javascript_include_merged :base %>
+    <% if logged_in? %>
+      <%= javascript_include_merged :logged_in_only %>
+    <% end %> 
+  
+    <%= yield :javascript %>
+
+  </head>
+  <body class="<%= controller_name -%>_<%= action_name -%>">
+    <%= render(:partial => 'layouts/header') %>
+    <%= yield :before_envelope %>
+    <% envelope do %>
+      <div id="main">
+        <%= render(:partial => 'layouts/console_nav') if show_console? %>
+        <%= render_messages %>
+        <%= yield %>
+      </div>
+      <%= render_sidebar if show_sidebar? %>
+    <% end %>
+    <div id="footer">
+      <p id="footer_copyright"><a href="/">Website &copy; <%= Time.now.strftime("%Y")%> Original Projects, Inc.</a></p>
+      <p id="footer_links">
+       <%= link_to "About", about_path %>
+       <%= link_to('Privacy Policy', :controller => 'home', :action => 'privacy') %>
+       <%= link_to("Terms of Use", tos_path) %>
+       <%= link_to("Contact", contact_path) %>
+      </p>
+
+    </div>
+    <div id="bottom_space">&nbsp;</div>
+
+    <script type="text/javascript">
+    var recaptcha_public_key = "<%= ENV['RECAPTCHA_PUBLIC_KEY'] %>";
+    </script>
+    <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15677217-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+  </body>
+</html>
